@@ -4,5 +4,9 @@
     <string name="app_name">PetroChina</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="welcome">欢迎光临</string>
+    <string name="unit_price">6.2/升</string>
+    <string name="oils">92#</string>
+    <string name="gun">1号枪</string>
 
 </resources>

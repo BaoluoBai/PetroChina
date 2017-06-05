@@ -1,16 +1,352 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.petrochina.MainActivity" >
+  	android:orientation="vertical" 
+  	android:background="#178FFF">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+    <ImageView 
+        android:id="@+id/iv_logo"
+        android:layout_width="215px"
+        android:layout_height="60px"
+        android:layout_marginTop="10px"
+        android:layout_marginBottom="10px"
+        android:layout_marginLeft="432px"
+        android:layout_marginRight="433px"
+        android:background="@drawable/logo"/>
+    
+    <VideoView 
+        android:id="@+id/vv_advertisement"
+        android:layout_width="match_parent"
+        android:layout_height="600px"/>
+    
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="120px"
+        android:background="#FFFFFF"
+        android:orientation="horizontal">
+        
+        <TextView 
+            android:id="@+id/tv_welcome_one"
+            android:layout_width="538px"
+            android:layout_height="118px"
+            android:layout_marginRight="2px"
+            android:layout_marginBottom="2px"
+            android:background="#178FFF"
+            android:gravity="center"
+            android:text="@string/welcome"
+            android:textColor="#FFFFFF"
+            android:textSize="32sp"/>
+        <TextView 
+            android:id="@+id/tv_welcome_two"
+            android:layout_width="538px"
+            android:layout_height="118px"
+            android:layout_marginLeft="2px"
+            android:layout_marginBottom="2px"
+            android:background="#178FFF"
+            android:gravity="center"
+            android:text="@string/welcome"
+            android:textColor="#FFFFFF"
+            android:textSize="32sp"/>
+    </LinearLayout>
+    
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="800px"
+        android:background="#FFFFFF"
+        android:orientation="horizontal">
+        
+        <RelativeLayout 
+            android:layout_width="538px"
+            android:layout_height="796px"
+            android:layout_marginTop="2px"
+            android:layout_marginBottom="2px"
+            android:layout_marginRight="2px"
+            android:background="@drawable/bg_payment">
 
-</RelativeLayout>
+            <ImageView
+                android:id="@+id/tv_oilcard_one"
+                android:layout_width="240px"
+                android:layout_height="220px"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="20px"
+                android:layout_marginTop="250px" 
+                android:background="@drawable/oil_card"/>
+
+            <ImageView
+                android:id="@+id/tv_visacard_one"
+                android:layout_width="240px"
+                android:layout_height="220px"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="250px"
+                android:layout_marginRight="20px"
+                android:background="@drawable/visa_card" />
+            
+            <ImageView
+                android:id="@+id/tv_cash_one"
+                android:layout_width="240px"
+                android:layout_height="220px"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="500px"
+                android:layout_marginLeft="20px"
+                android:background="@drawable/cash" />
+            
+            <ImageView
+                android:id="@+id/tv_mobilepay_one"
+                android:layout_width="240px"
+                android:layout_height="220px"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="500px"
+                android:layout_marginRight="20px"
+                android:background="@drawable/mobilepay" />
+            
+        </RelativeLayout>
+        <RelativeLayout 
+            android:layout_width="538px"
+            android:layout_height="796px"
+            android:layout_marginTop="2px"
+            android:layout_marginBottom="2px"
+            android:layout_marginLeft="2px"
+            android:background="@drawable/bg_payment">
+            
+            <ImageView
+                android:id="@+id/tv_oilcard_two"
+                android:layout_width="240px"
+                android:layout_height="220px"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="20px"
+                android:layout_marginTop="250px" 
+                android:background="@drawable/oil_card"/>
+
+            <ImageView
+                android:id="@+id/tv_visacard_two"
+                android:layout_width="240px"
+                android:layout_height="220px"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="250px"
+                android:layout_marginRight="20px"
+                android:background="@drawable/visa_card" />
+            
+            <ImageView
+                android:id="@+id/tv_cash_two"
+                android:layout_width="240px"
+                android:layout_height="220px"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="500px"
+                android:layout_marginLeft="20px"
+                android:background="@drawable/cash" />
+            
+            <ImageView
+                android:id="@+id/tv_mobilepay_two"
+                android:layout_width="240px"
+                android:layout_height="220px"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="500px"
+                android:layout_marginRight="20px"
+                android:background="@drawable/mobilepay" />
+        </RelativeLayout>
+    </LinearLayout>
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="225px"
+        android:orientation="horizontal">
+        <RelativeLayout 
+            android:layout_marginTop="50px"
+            android:layout_marginLeft="10px"
+            android:layout_height="178px"
+            android:layout_width="250px">
+            <TextView 
+                android:id="@+id/tv_unitprice_one"
+                android:layout_width="250px"
+                android:layout_height="97px"
+                android:background="@drawable/tvstyle"
+                android:textColor="#FFFFFF"
+                android:text="@string/unit_price"
+                android:gravity="center"
+                android:textSize="36sp"/>
+            <TextView 
+                android:id="@+id/tv_oils_one"
+                android:layout_width="130px"
+                android:layout_height="73px"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="97px"
+                android:background="@drawable/tvstyle"
+                android:text="@string/oils"
+                android:textSize="32sp"
+                android:textColor="#FFFFFF"
+                android:gravity="center"/>
+            <TextView 
+                android:id="@+id/tv_gun_one"
+                android:layout_width="120px"
+                android:layout_height="73px"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="97px"
+                android:background="@drawable/tvstyle"
+                android:text="@string/gun"
+                android:textSize="32sp"
+                android:textColor="#FFFFFF"
+                android:gravity="center"/>
+            
+        </RelativeLayout>
+        
+        <RelativeLayout 
+            android:layout_marginTop="50px"
+            android:layout_marginLeft="10px"
+            android:layout_height="178px"
+            android:layout_width="250px">
+            <TextView 
+                android:id="@+id/tv_unitprice_two"
+                android:layout_width="250px"
+                android:layout_height="97px"
+                android:background="@drawable/tvstyle"
+                android:textColor="#FFFFFF"
+                android:text="@string/unit_price"
+                android:gravity="center"
+                android:textSize="36sp"/>
+            <TextView 
+                android:id="@+id/tv_oils_two"
+                android:layout_width="130px"
+                android:layout_height="73px"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="97px"
+                android:background="@drawable/tvstyle"
+                android:text="@string/oils"
+                android:textSize="32sp"
+                android:textColor="#FFFFFF"
+                android:gravity="center"/>
+            <TextView 
+                android:id="@+id/tv_gun_two"
+                android:layout_width="120px"
+                android:layout_height="73px"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="97px"
+                android:background="@drawable/tvstyle"
+                android:text="@string/gun"
+                android:textSize="32sp"
+                android:textColor="#FFFFFF"
+                android:gravity="center"/>
+            
+        </RelativeLayout>
+        
+        <RelativeLayout 
+            android:layout_marginTop="50px"
+            android:layout_marginLeft="40px"
+            android:layout_height="178px"
+            android:layout_width="250px">
+            <TextView 
+                android:id="@+id/tv_unitprice_three"
+                android:layout_width="250px"
+                android:layout_height="97px"
+                android:background="@drawable/tvstyle"
+                android:textColor="#FFFFFF"
+                android:text="@string/unit_price"
+                android:gravity="center"
+                android:textSize="36sp"/>
+            <TextView 
+                android:id="@+id/tv_oils_three"
+                android:layout_width="130px"
+                android:layout_height="73px"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="97px"
+                android:background="@drawable/tvstyle"
+                android:text="@string/oils"
+                android:textSize="32sp"
+                android:textColor="#FFFFFF"
+                android:gravity="center"/>
+            <TextView 
+                android:id="@+id/tv_gun_three"
+                android:layout_width="120px"
+                android:layout_height="73px"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="97px"
+                android:background="@drawable/tvstyle"
+                android:text="@string/gun"
+                android:textSize="32sp"
+                android:textColor="#FFFFFF"
+                android:gravity="center"/>
+            
+        </RelativeLayout>
+        
+        <RelativeLayout 
+            android:layout_marginTop="50px"
+            android:layout_marginLeft="10px"
+            android:layout_height="178px"
+            android:layout_width="250px">
+            <TextView 
+                android:id="@+id/tv_unitprice_four"
+                android:layout_width="250px"
+                android:layout_height="97px"
+                android:background="@drawable/tvstyle"
+                android:textColor="#FFFFFF"
+                android:text="@string/unit_price"
+                android:gravity="center"
+                android:textSize="36sp"/>
+            <TextView 
+                android:id="@+id/tv_oils_four"
+                android:layout_width="130px"
+                android:layout_height="73px"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="97px"
+                android:background="@drawable/tvstyle"
+                android:text="@string/oils"
+                android:textSize="32sp"
+                android:textColor="#FFFFFF"
+                android:gravity="center"/>
+            <TextView 
+                android:id="@+id/tv_gun_four"
+                android:layout_width="120px"
+                android:layout_height="73px"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="97px"
+                android:background="@drawable/tvstyle"
+                android:text="@string/gun"
+                android:textSize="32sp"
+                android:textColor="#FFFFFF"
+                android:gravity="center"/>
+            
+        </RelativeLayout>
+    </LinearLayout>
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="95px"
+        android:layout_marginTop="5px"
+        android:background="#0B75FF"
+        android:orientation="horizontal">
+        <TextView 
+            android:id="@+id/tv_welcome_buttom_one"
+            android:layout_width="540px"
+            android:layout_height="95px"
+            android:textSize="44sp"
+            android:text="@string/welcome"
+            android:textColor="#FFFFFF"
+            android:typeface="sans"
+            android:gravity="center"/>
+        <TextView 
+            android:id="@+id/tv_welcome_buttom_two"
+            android:layout_width="540px"
+            android:layout_height="95px"
+            android:textSize="44sp"
+            android:text="@string/welcome"
+            android:textColor="#FFFFFF"
+            android:typeface="sans"
+            android:gravity="center"/>
+    </LinearLayout>
+    
+
+</LinearLayout>
