@@ -2,6 +2,7 @@ package com.example.petrochina;
 
 
 import com.example.petrochina.util.DataHexUtil;
+import com.example.petrochina.util.LogUtil;
 import com.example.petrochina.util.SerialPortUtil;
 import com.example.petrochina.util.SerialPortUtil.OnDataReceiveListener;
 
@@ -13,6 +14,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 
 public class MainActivity extends Activity implements OnClickListener{
@@ -34,6 +36,7 @@ public class MainActivity extends Activity implements OnClickListener{
         setContentView(R.layout.activity_main);
         serialPortOne = new SerialPortUtil(PORT_ONE, BAUDRATE);
         dataUtil = new DataHexUtil();
+        initView();
         serialPortOne.setOnDataReceiveListener(new OnDataReceiveListener() {
 			
 			@Override
@@ -102,22 +105,22 @@ public class MainActivity extends Activity implements OnClickListener{
 			
 			break;
 		case R.id.tv_cash_one:
-	
+			
 			break;
 		case R.id.tv_mobilepay_one:
-	
+			
 			break;
 		case R.id.tv_oilcard_two:
-	
+			
 			break;
 		case R.id.tv_visacard_two:
-	
+			
 			break;
 		case R.id.tv_cash_two:
-	
+			
 			break;
 		case R.id.tv_mobilepay_two:
-		
+			
 			break;
 
 		default:

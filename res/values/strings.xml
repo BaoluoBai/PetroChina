@@ -8,5 +8,6 @@
     <string name="unit_price">6.2/升</string>
     <string name="oils">92#</string>
     <string name="gun">1号枪</string>
+    <string name="password">******</string>
 
 </resources>

@@ -1,14 +1,12 @@
 package com.example.petrochina.util;
-
-import java.io.BufferedWriter;  
+ 
 import java.io.File;  
 import java.io.IOException;  
 import java.io.InputStream;  
 import java.io.OutputStream;  
-import java.io.OutputStreamWriter;  
-import java.io.PrintWriter;  
 
-import com.example.petrochina.serial.SerialPort;
+import org.winplus.serial.utils.SerialPort;
+
   
 /** 
  * 串口操作类 
@@ -43,6 +41,7 @@ public class SerialPortUtil {
 			mOutputStream = mSerialPort.getOutputStream();
             mInputStream = mSerialPort.getInputStream();
             isStop = false;
+            mReadThread = new ReadThread();
             mReadThread.start();
 		} catch (SecurityException e) {
 			// TODO Auto-generated catch block

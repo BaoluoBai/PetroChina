@@ -1,4 +1,4 @@
-package com.example.petrochina.serial;
+package org.winplus.serial.utils;
 
 import java.io.File;
 import java.io.FileReader;

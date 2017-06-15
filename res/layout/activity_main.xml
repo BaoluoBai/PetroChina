@@ -56,13 +56,15 @@
         android:background="#FFFFFF"
         android:orientation="horizontal">
         
-        <RelativeLayout 
+        <RelativeLayout
+            android:id="@+id/rl_payment_one" 
             android:layout_width="538px"
             android:layout_height="796px"
             android:layout_marginTop="2px"
             android:layout_marginBottom="2px"
             android:layout_marginRight="2px"
-            android:background="@drawable/bg_payment">
+            android:background="@drawable/bg_payment"
+            android:visibility="gone">
 
             <ImageView
                 android:id="@+id/tv_oilcard_one"
@@ -106,12 +108,37 @@
             
         </RelativeLayout>
         <RelativeLayout 
+            android:id="@+id/rl_icpwd_one"
+            android:layout_width="538px"
+            android:layout_height="796px"
+            android:layout_marginTop="2px"
+            android:layout_marginBottom="2px"
+            android:layout_marginRight="2px"
+            android:background="@drawable/bg_icpwd">
+
+            <TextView
+                android:id="@+id/tv_icpwd_one"
+                android:layout_width="450px"
+                android:layout_height="91px"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="276px"
+                android:text="@string/password"
+                android:gravity="center"
+                android:textSize="60sp"/>
+
+        </RelativeLayout>
+        
+        
+        
+        <RelativeLayout
+            android:id="@+id/rl_payment_two"
             android:layout_width="538px"
             android:layout_height="796px"
             android:layout_marginTop="2px"
             android:layout_marginBottom="2px"
             android:layout_marginLeft="2px"
-            android:background="@drawable/bg_payment">
+            android:background="@drawable/bg_payment"
+            android:visibility="gone">
             
             <ImageView
                 android:id="@+id/tv_oilcard_two"
@@ -152,6 +179,27 @@
                 android:layout_marginTop="500px"
                 android:layout_marginRight="20px"
                 android:background="@drawable/mobilepay" />
+        </RelativeLayout>
+        
+        <RelativeLayout 
+            android:id="@+id/rl_icpwd_two"
+            android:layout_width="538px"
+            android:layout_height="796px"
+            android:layout_marginTop="2px"
+            android:layout_marginBottom="2px"
+            android:layout_marginLeft="2px"
+            android:background="@drawable/bg_icpwd">
+
+            <TextView
+                android:id="@+id/tv_icpwd_two"
+                android:layout_width="450px"
+                android:layout_height="91px"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="276px"
+                android:text="@string/password"
+                android:gravity="center"
+                android:textSize="60sp"/>
+
         </RelativeLayout>
     </LinearLayout>
     <LinearLayout 
