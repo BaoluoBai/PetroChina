@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="538px"
+    android:layout_height="796px"
+    android:layout_marginTop="2px"
+    android:layout_marginBottom="2px"
+    android:layout_marginRight="2px"
+    android:background="@drawable/bg_payment">
+
+            <ImageView
+                android:id="@+id/tv_oilcard_one"
+                android:layout_width="240px"
+                android:layout_height="220px"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="20px"
+                android:layout_marginTop="250px" 
+                android:background="@drawable/oil_card"/>
+
+            <ImageView
+                android:id="@+id/tv_visacard_one"
+                android:layout_width="240px"
+                android:layout_height="220px"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="250px"
+                android:layout_marginRight="20px"
+                android:background="@drawable/visa_card" />
+            
+            <ImageView
+                android:id="@+id/tv_cash_one"
+                android:layout_width="240px"
+                android:layout_height="220px"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="500px"
+                android:layout_marginLeft="20px"
+                android:background="@drawable/cash" />
+            
+            <ImageView
+                android:id="@+id/tv_mobilepay_one"
+                android:layout_width="240px"
+                android:layout_height="220px"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="500px"
+                android:layout_marginRight="20px"
+                android:background="@drawable/mobilepay"/>
+</RelativeLayout>

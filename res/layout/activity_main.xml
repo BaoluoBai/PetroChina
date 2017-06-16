@@ -56,77 +56,13 @@
         android:background="#FFFFFF"
         android:orientation="horizontal">
         
-        <RelativeLayout
-            android:id="@+id/rl_payment_one" 
-            android:layout_width="538px"
-            android:layout_height="796px"
-            android:layout_marginTop="2px"
-            android:layout_marginBottom="2px"
-            android:layout_marginRight="2px"
-            android:background="@drawable/bg_payment"
-            android:visibility="gone">
-
-            <ImageView
-                android:id="@+id/tv_oilcard_one"
-                android:layout_width="240px"
-                android:layout_height="220px"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="20px"
-                android:layout_marginTop="250px" 
-                android:background="@drawable/oil_card"/>
-
-            <ImageView
-                android:id="@+id/tv_visacard_one"
-                android:layout_width="240px"
-                android:layout_height="220px"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="250px"
-                android:layout_marginRight="20px"
-                android:background="@drawable/visa_card" />
-            
-            <ImageView
-                android:id="@+id/tv_cash_one"
-                android:layout_width="240px"
-                android:layout_height="220px"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="500px"
-                android:layout_marginLeft="20px"
-                android:background="@drawable/cash" />
-            
-            <ImageView
-                android:id="@+id/tv_mobilepay_one"
-                android:layout_width="240px"
-                android:layout_height="220px"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="500px"
-                android:layout_marginRight="20px"
-                android:background="@drawable/mobilepay" />
-            
-        </RelativeLayout>
         <RelativeLayout 
-            android:id="@+id/rl_icpwd_one"
-            android:layout_width="538px"
-            android:layout_height="796px"
-            android:layout_marginTop="2px"
-            android:layout_marginBottom="2px"
-            android:layout_marginRight="2px"
-            android:background="@drawable/bg_icpwd">
-
-            <TextView
-                android:id="@+id/tv_icpwd_one"
-                android:layout_width="450px"
-                android:layout_height="91px"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="276px"
-                android:text="@string/password"
-                android:gravity="center"
-                android:textSize="60sp"/>
-
+            android:id="@+id/view_number_one"
+            android:layout_width="540px"
+            android:layout_height="800px">
+            
         </RelativeLayout>
+        
         
         
         
@@ -188,7 +124,8 @@
             android:layout_marginTop="2px"
             android:layout_marginBottom="2px"
             android:layout_marginLeft="2px"
-            android:background="@drawable/bg_icpwd">
+            android:background="@drawable/bg_icpwd"
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/tv_icpwd_two"
@@ -201,6 +138,99 @@
                 android:textSize="60sp"/>
 
         </RelativeLayout>
+        
+        
+        <RelativeLayout 
+            android:id="@+id/rl_insertcard_two"
+            android:layout_width="538px"
+            android:layout_height="796px"
+            android:layout_marginTop="2px"
+            android:layout_marginBottom="2px"
+            android:layout_marginLeft="2px"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/tv_insertcard_two"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/insert_cart"/>
+
+        </RelativeLayout>
+        
+        <RelativeLayout 
+            android:id="@+id/rl_pickupgun_two"
+            android:layout_width="538px"
+            android:layout_height="796px"
+            android:layout_marginTop="2px"
+            android:layout_marginBottom="2px"
+            android:layout_marginLeft="2px"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/tv_pickupgun_two"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/pickup_gun"/>
+
+        </RelativeLayout>
+        
+        <RelativeLayout 
+            android:id="@+id/rl_confirmoilagain_two"
+            android:layout_width="538px"
+            android:layout_height="796px"
+            android:layout_marginTop="2px"
+            android:layout_marginBottom="2px"
+            android:layout_marginLeft="2px"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/tv_confirmoilagain_two"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/confirm_oil_again"/>
+
+        </RelativeLayout>
+        
+        <RelativeLayout 
+            android:id="@+id/rl_fillingup_two"
+            android:layout_width="538px"
+            android:layout_height="796px"
+            android:layout_marginTop="2px"
+            android:layout_marginBottom="2px"
+            android:layout_marginLeft="2px"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/tv_fillingup_two"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/filling_up"/>
+
+        </RelativeLayout>
+        
+        <RelativeLayout 
+            android:id="@+id/rl_fillfinish_two"
+            android:layout_width="538px"
+            android:layout_height="796px"
+            android:layout_marginTop="2px"
+            android:layout_marginBottom="2px"
+            android:layout_marginLeft="2px">
+
+            <ImageView
+                android:id="@+id/tv_fillfinish_two"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/finish"/>
+
+        </RelativeLayout>
+        
+        
+        
     </LinearLayout>
     <LinearLayout 
         android:layout_width="match_parent"
