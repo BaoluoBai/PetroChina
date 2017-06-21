@@ -65,7 +65,7 @@
         
         
         
-        
+        <!--  
         <RelativeLayout
             android:id="@+id/rl_payment_two"
             android:layout_width="538px"
@@ -229,7 +229,7 @@
 
         </RelativeLayout>
         
-        
+        -->
         
     </LinearLayout>
     <LinearLayout 
