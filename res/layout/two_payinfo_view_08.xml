@@ -5,7 +5,7 @@
 	android:background="@drawable/withhold_info">
 
     <TextView
-        android:id="@+id/tv_paymoney_one"
+        android:id="@+id/tv_paymoney_two"
         android:layout_width="200px"
         android:layout_height="60px"
         android:layout_alignParentRight="true"
@@ -17,7 +17,7 @@
         android:textSize="45sp" />
 
     <TextView
-        android:id="@+id/tv_lastmoney_one"
+        android:id="@+id/tv_lastmoney_two"
         android:layout_width="200px"
         android:layout_height="60px"
         android:layout_alignParentRight="true"
@@ -29,7 +29,7 @@
         android:textSize="45sp" />
 
     <Button
-        android:id="@+id/btn_printyes_one"
+        android:id="@+id/btn_printyes_two"
         android:layout_width="170dp"
         android:layout_height="84dp"
         android:layout_marginTop="565dp"
@@ -37,11 +37,11 @@
         android:text="yes"/>
 
     <Button
-        android:id="@+id/btn_printno_one"
+        android:id="@+id/btn_printno_two"
         android:layout_width="170dp"
         android:layout_height="84dp"
-        android:layout_alignBaseline="@+id/btn_printyes_one"
-        android:layout_alignBottom="@+id/btn_printyes_one"
+        android:layout_alignBaseline="@+id/btn_printyes_two"
+        android:layout_alignBottom="@+id/btn_printyes_two"
         android:layout_marginLeft="296dp" 
         android:text="no"/>
 

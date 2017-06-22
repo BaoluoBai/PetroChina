@@ -5,7 +5,7 @@
     android:background="@drawable/bg_payment">
 
             <ImageView
-                android:id="@+id/tv_oilcard_one"
+                android:id="@+id/tv_oilcard_two"
                 android:layout_width="240px"
                 android:layout_height="220px"
                 android:layout_alignParentLeft="true"
@@ -15,7 +15,7 @@
                 android:background="@drawable/oil_card"/>
 
             <ImageView
-                android:id="@+id/tv_visacard_one"
+                android:id="@+id/tv_visacard_two"
                 android:layout_width="240px"
                 android:layout_height="220px"
                 android:layout_alignParentRight="true"
@@ -25,7 +25,7 @@
                 android:background="@drawable/visa_card" />
             
             <ImageView
-                android:id="@+id/tv_cash_one"
+                android:id="@+id/tv_cash_two"
                 android:layout_width="240px"
                 android:layout_height="220px"
                 android:layout_alignParentLeft="true"
@@ -35,7 +35,7 @@
                 android:background="@drawable/cash" />
             
             <ImageView
-                android:id="@+id/tv_mobilepay_one"
+                android:id="@+id/tv_mobilepay_two"
                 android:layout_width="240px"
                 android:layout_height="220px"
                 android:layout_alignParentRight="true"

@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+	android:layout_height="match_parent" >
     
-     <ImageView
-		android:id="@+id/tv_confirmoilagain_one"
+    
+    <ImageView
+		android:id="@+id/tv_fillfinish_two"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:layout_centerHorizontal="true"
-		android:background="@drawable/confirm_oil_again"/>
+		android:src="@drawable/finish"
+		android:scaleType="fitXY"/>
 
 </RelativeLayout>

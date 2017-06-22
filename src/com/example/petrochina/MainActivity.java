@@ -27,6 +27,7 @@ public class MainActivity extends Activity{
 	private static final int BAUDRATE = 9600;
 	
 	int i = 0;
+	int j = 0;
 	
 	
 	private RelativeLayout mRelaytiveLayout_one, mRelaytiveLayout_two;
@@ -85,6 +86,7 @@ public class MainActivity extends Activity{
     
     private void initView(){
     	mRelaytiveLayout_one = (RelativeLayout) findViewById(R.id.view_number_one);
+    	mRelaytiveLayout_two = (RelativeLayout) findViewById(R.id.view_number_two);
 //    	iv_oilcard_one = (ImageView) findViewById(R.id.tv_oilcard_one);
 //    	iv_visacard_one = (ImageView) findViewById(R.id.tv_visacard_one);
 //    	iv_cash_one = (ImageView) findViewById(R.id.tv_cash_one);
@@ -101,9 +103,13 @@ public class MainActivity extends Activity{
 //    	iv_visacard_two.setOnClickListener(this);
 //    	iv_cash_two.setOnClickListener(this);
 //    	iv_mobilepay_two.setOnClickListener(this);
-    	display(R.layout.one_payment_view_01);
-    	Timer tt = new Timer();
-    	tt.schedule(ts, 2000, 5000);
+    	display_one(R.layout.one_payinfo_view_08);
+    	display_two(R.layout.two_payinfo_view_08);
+    	Timer tb = new Timer();
+    	tb.schedule(ts, 2000, 5000);
+    	
+    	Timer ss = new Timer();
+    	ss.schedule(tt, 1000, 7000);
     }
 
 
@@ -141,7 +147,7 @@ public class MainActivity extends Activity{
 //		}
 //	}
     
-    public void display(final int resource){
+    public void display_one(final int resource){
     	mView_one = View.inflate(this, resource, null);
 		runOnUiThread(new Runnable() {
 			
@@ -158,6 +164,23 @@ public class MainActivity extends Activity{
 		});
     }
     
+    public void display_two(final int resource){
+    	mView_two = View.inflate(this, resource, null);
+    	runOnUiThread(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				j++;
+				mRelaytiveLayout_two.removeAllViews();
+		    	mRelaytiveLayout_two.addView(mView_two);
+		    	if(j>6){
+		    		j=0;
+		    	}
+			}
+		});
+    }
+    
     TimerTask ts = new TimerTask() {
 		
 		@Override
@@ -165,25 +188,61 @@ public class MainActivity extends Activity{
 			// TODO Auto-generated method stub
 			switch (i) {
 			case 0:
-				display(R.layout.one_payment_view_01);
+				display_one(R.layout.one_payment_view_01);
 				break;
 			case 1:
-				display(R.layout.one_password_view_02);
+				display_one(R.layout.one_password_view_02);
 				break;
 			case 2:
-				display(R.layout.one_pickgun_view_04);
+				display_one(R.layout.one_pickgun_view_04);
 				break;
 			case 3:
-				display(R.layout.one_confirmoilagain_view_05);
+				display_one(R.layout.one_confirmoilagain_view_05);
 				break;
 			case 4:
-				display(R.layout.one_fillingup_view_06);
+				display_one(R.layout.one_fillingup_view_06);
 				break;
 			case 5:
-				display(R.layout.one_fillfinish_view_07);
+				display_one(R.layout.one_fillfinish_view_07);
 				break;
 			case 6:
-				display(R.layout.one_payinfo_view_08);
+				display_one(R.layout.one_payinfo_view_08);
+				break;
+
+			default:
+				break;
+			}
+
+		}
+		
+	};
+	
+	TimerTask tt = new TimerTask() {
+		
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			switch (j) {
+			case 0:
+				display_two(R.layout.two_payment_view_01);
+				break;
+			case 1:
+				display_two(R.layout.two_password_view_02);
+				break;
+			case 2:
+				display_two(R.layout.two_pickgun_view_04);
+				break;
+			case 3:
+				display_two(R.layout.two_confirmoilagain_view_05);
+				break;
+			case 4:
+				display_two(R.layout.two_fillingup_view_06);
+				break;
+			case 5:
+				display_two(R.layout.two_fillfinish_view_07);
+				break;
+			case 6:
+				display_two(R.layout.two_payinfo_view_08);
 				break;
 
 			default:

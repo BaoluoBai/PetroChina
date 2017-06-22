@@ -3,13 +3,11 @@
     android:layout_width="match_parent"
 	android:layout_height="match_parent">
     
-    
     <ImageView
-		android:id="@+id/tv_fillfinish_one"
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:layout_centerHorizontal="true"
-		android:src="@drawable/finish"
-		android:scaleType="fitXY"/>
+    	android:id="@+id/tv_pickupgun_two"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/pickup_gun"/>
 
 </RelativeLayout>

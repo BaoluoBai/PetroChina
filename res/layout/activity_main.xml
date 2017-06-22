@@ -58,8 +58,21 @@
         
         <RelativeLayout 
             android:id="@+id/view_number_one"
-            android:layout_width="540px"
-            android:layout_height="800px">
+            android:layout_width="538px"
+            android:layout_height="796px"
+            android:layout_marginTop="2px"
+			android:layout_marginBottom="2px"
+			android:layout_marginRight="2px">
+            
+        </RelativeLayout>
+        
+        <RelativeLayout 
+            android:id="@+id/view_number_two"
+            android:layout_width="538px"
+            android:layout_height="796px"
+            android:layout_marginTop="2px"
+			android:layout_marginBottom="2px"
+			android:layout_marginLeft="2px">
             
         </RelativeLayout>
         
