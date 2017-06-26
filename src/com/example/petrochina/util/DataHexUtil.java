@@ -22,6 +22,13 @@ public class DataHexUtil {
 		}
 		return oil_list;
 	}
+	/**
+	 * 处理加油方式放回结果
+	 * @param buffer
+	 */
+	public void handlPaymentResult(byte[] buffer){
+		
+	}
 	
 	public String handlePrice(byte[] buffer){
 		byte[] danwei = subBytes(buffer, 0, 1);
@@ -77,7 +84,7 @@ public class DataHexUtil {
  		return oil_kind;
 	}
 	
-	private byte[] subBytes(byte[] src, int begin, int count) {  
+	public byte[] subBytes(byte[] src, int begin, int count) {  
 	    byte[] bs = new byte[count];  
 	    System.arraycopy(src, begin, bs, 0, count);  
 	    return bs;  
@@ -114,5 +121,19 @@ public class DataHexUtil {
   		LogUtil.d(TAG, "一共有 "+count+" 把枪");
   		return count;
   	}
+  	
 	
+  	public int checkVC(byte[] buffer){
+  		int vc = 0x00;
+  		for(int i=0;i<buffer.length-1;i++){
+  			if(i==0){
+  				vc = (buffer[i]&0xFF)^(buffer[i+1]&0xFF);
+  			}else{
+  				vc ^= (buffer[i]&0xFF);
+  			}
+  		}
+  		
+		return (vc&0xFF);
+  		
+  	}
 }

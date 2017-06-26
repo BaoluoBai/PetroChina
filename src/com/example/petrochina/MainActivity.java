@@ -4,6 +4,7 @@ package com.example.petrochina;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import com.example.petrochina.model.Payment;
 import com.example.petrochina.util.DataHexUtil;
 import com.example.petrochina.util.LogUtil;
 import com.example.petrochina.util.SerialPortUtil;
@@ -21,7 +22,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 
-public class MainActivity extends Activity{
+public class MainActivity extends Activity implements OnClickListener{
 	private static final String PORT_ONE = "/dev/ttymxc1";
 	private static final String PORT_TWO = "/dev/ttymxc2";
 	private static final int BAUDRATE = 9600;
@@ -38,6 +39,7 @@ public class MainActivity extends Activity{
 	public SerialPortUtil serialPortOne = null;
 	public SerialPortUtil serialPortTwo = null;
 	public DataHexUtil dataUtil = null;
+	public Payment payment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,8 @@ public class MainActivity extends Activity{
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
         serialPortOne = new SerialPortUtil(PORT_ONE, BAUDRATE);
+        serialPortTwo = new SerialPortUtil(PORT_TWO, BAUDRATE);
+        payment = new Payment();
         dataUtil = new DataHexUtil();
         initView();
         serialPortOne.setOnDataReceiveListener(new OnDataReceiveListener() {
@@ -56,7 +60,8 @@ public class MainActivity extends Activity{
 				case 0x20:
 					dataUtil.handleOilData(buffer);
 					break;
-
+				case 0x23:
+					dataUtil.handlPaymentResult(buffer);
 				default:
 					break;
 				}
@@ -87,22 +92,22 @@ public class MainActivity extends Activity{
     private void initView(){
     	mRelaytiveLayout_one = (RelativeLayout) findViewById(R.id.view_number_one);
     	mRelaytiveLayout_two = (RelativeLayout) findViewById(R.id.view_number_two);
-//    	iv_oilcard_one = (ImageView) findViewById(R.id.tv_oilcard_one);
-//    	iv_visacard_one = (ImageView) findViewById(R.id.tv_visacard_one);
-//    	iv_cash_one = (ImageView) findViewById(R.id.tv_cash_one);
-//    	iv_mobilepay_one = (ImageView) findViewById(R.id.tv_mobilepay_one);
-//    	iv_oilcard_two = (ImageView) findViewById(R.id.tv_oilcard_two);
-//    	iv_visacard_two = (ImageView) findViewById(R.id.tv_visacard_two);
-//    	iv_cash_two = (ImageView) findViewById(R.id.tv_cash_two);
-//    	iv_mobilepay_two = (ImageView) findViewById(R.id.tv_mobilepay_two);
-//    	iv_oilcard_one.setOnClickListener(this);
-//    	iv_visacard_one.setOnClickListener(this);
-//    	iv_cash_one.setOnClickListener(this);
-//    	iv_mobilepay_one.setOnClickListener(this);
-//    	iv_oilcard_two.setOnClickListener(this);
-//    	iv_visacard_two.setOnClickListener(this);
-//    	iv_cash_two.setOnClickListener(this);
-//    	iv_mobilepay_two.setOnClickListener(this);
+    	iv_oilcard_one = (ImageView) findViewById(R.id.tv_oilcard_one);
+    	iv_visacard_one = (ImageView) findViewById(R.id.tv_visacard_one);
+    	iv_cash_one = (ImageView) findViewById(R.id.tv_cash_one);
+    	iv_mobilepay_one = (ImageView) findViewById(R.id.tv_mobilepay_one);
+    	iv_oilcard_two = (ImageView) findViewById(R.id.tv_oilcard_two);
+    	iv_visacard_two = (ImageView) findViewById(R.id.tv_visacard_two);
+    	iv_cash_two = (ImageView) findViewById(R.id.tv_cash_two);
+    	iv_mobilepay_two = (ImageView) findViewById(R.id.tv_mobilepay_two);
+    	iv_oilcard_one.setOnClickListener(this);
+    	iv_visacard_one.setOnClickListener(this);
+    	iv_cash_one.setOnClickListener(this);
+    	iv_mobilepay_one.setOnClickListener(this);
+    	iv_oilcard_two.setOnClickListener(this);
+    	iv_visacard_two.setOnClickListener(this);
+    	iv_cash_two.setOnClickListener(this);
+    	iv_mobilepay_two.setOnClickListener(this);
     	display_one(R.layout.one_payinfo_view_08);
     	display_two(R.layout.two_payinfo_view_08);
     	Timer tb = new Timer();
@@ -113,39 +118,39 @@ public class MainActivity extends Activity{
     }
 
 
-//	@Override
-//	public void onClick(View v) {
-//		// TODO Auto-generated method stub
-//		switch (v.getId()) {
-//		case R.id.tv_oilcard_one:
-//			
-//			break;
-//		case R.id.tv_visacard_one:
-//			
-//			break;
-//		case R.id.tv_cash_one:
-//			
-//			break;
-//		case R.id.tv_mobilepay_one:
-//			
-//			break;
-//		case R.id.tv_oilcard_two:
-//			
-//			break;
-//		case R.id.tv_visacard_two:
-//			
-//			break;
-//		case R.id.tv_cash_two:
-//			
-//			break;
-//		case R.id.tv_mobilepay_two:
-//			
-//			break;
-//
-//		default:
-//			break;
-//		}
-//	}
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		switch (v.getId()) {
+		case R.id.tv_oilcard_one:
+			serialPortOne.sendBuffer(payment.MsgPayment(1));
+			break;
+		case R.id.tv_visacard_one:
+			serialPortOne.sendBuffer(payment.MsgPayment(2));
+			break;
+		case R.id.tv_cash_one:
+			serialPortOne.sendBuffer(payment.MsgPayment(0));
+			break;
+		case R.id.tv_mobilepay_one:
+			serialPortOne.sendBuffer(payment.MsgPayment(3));
+			break;
+		case R.id.tv_oilcard_two:
+			serialPortTwo.sendBuffer(payment.MsgPayment(1));
+			break;
+		case R.id.tv_visacard_two:
+			serialPortTwo.sendBuffer(payment.MsgPayment(2));
+			break;
+		case R.id.tv_cash_two:
+			serialPortTwo.sendBuffer(payment.MsgPayment(0));
+			break;
+		case R.id.tv_mobilepay_two:
+			serialPortTwo.sendBuffer(payment.MsgPayment(3));
+			break;
+
+		default:
+			break;
+		}
+	}
     
     public void display_one(final int resource){
     	mView_one = View.inflate(this, resource, null);
