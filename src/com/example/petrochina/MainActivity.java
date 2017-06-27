@@ -1,6 +1,8 @@
 package com.example.petrochina;
 
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -19,6 +21,7 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -35,6 +38,8 @@ public class MainActivity extends Activity implements OnClickListener{
 	private View mView_one, mView_two;
 	private ImageView iv_oilcard_one, iv_visacard_one, iv_cash_one, iv_mobilepay_one,
 	iv_oilcard_two, iv_visacard_two, iv_cash_two, iv_mobilepay_two;
+	
+	private TextView tv_password_one, tv_tips_one;
 	
 	public SerialPortUtil serialPortOne = null;
 	public SerialPortUtil serialPortTwo = null;
@@ -57,36 +62,28 @@ public class MainActivity extends Activity implements OnClickListener{
 			public void onDataReceive(byte[] buffer, int size) {
 				// TODO Auto-generated method stub
 				switch (buffer[2]) {
+				case 0x13:
+					Map map = new HashMap();
+					map = dataUtil.handle_13_MSG(buffer);
+					int view = (Integer) map.get("view_number");
+					if(view == 2){
+						//处理输入密码页面逻辑
+						handle_02_view(map);	
+					}
+					break;
 				case 0x20:
 					dataUtil.handleOilData(buffer);
 					break;
 				case 0x23:
-					dataUtil.handlPaymentResult(buffer);
+					boolean allow = dataUtil.handlPaymentResult(buffer);
+					if(allow == true){
+						display_one(R.layout.one_insercard_view_30);
+					}
 				default:
 					break;
 				}
 			}
 		});
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
     
     private void initView(){
@@ -152,8 +149,38 @@ public class MainActivity extends Activity implements OnClickListener{
 		}
 	}
     
-    public void display_one(final int resource){
-    	mView_one = View.inflate(this, resource, null);
+    public void display_one(int view_number){
+    	switch (view_number) {
+		case 0://支付方式
+			mView_one = View.inflate(this, R.layout.one_payment_view_01, null);
+			break;
+		case 1://请插卡
+			mView_one = View.inflate(this, R.layout.one_insercard_view_30, null);
+			break;
+		case 2://请输入密码
+			mView_one = View.inflate(this, R.layout.one_password_view_02, null);
+			break;
+		case 3://预制量输入
+			
+			break;
+		case 4://请提枪加油
+			mView_one = View.inflate(this, R.layout.one_pickgun_view_04, null);
+			break;
+		case 5:
+			mView_one = View.inflate(this, R.layout.one_confirmoilagain_view_05, null);
+			break;
+		case 6:
+			mView_one = View.inflate(this, R.layout.one_fillingup_view_06, null);
+			break;
+		case 7:
+			mView_one = View.inflate(this, R.layout.one_fillfinish_view_07, null);
+			break;
+		case 8:
+			mView_one = View.inflate(this, R.layout.one_payinfo_view_08, null);
+			break;
+		default:
+			break;
+		}
 		runOnUiThread(new Runnable() {
 			
 			@Override
@@ -169,8 +196,37 @@ public class MainActivity extends Activity implements OnClickListener{
 		});
     }
     
-    public void display_two(final int resource){
-    	mView_two = View.inflate(this, resource, null);
+    public void display_two(int view_number){
+    	switch (view_number) {
+		case 0://支付方式
+			mView_two = View.inflate(this, R.layout.one_payment_view_01, null);
+			break;
+		case 1://请插卡
+			mView_two = View.inflate(this, R.layout.one_insercard_view_30, null);
+			break;
+		case 2://请输入密码
+			mView_two = View.inflate(this, R.layout.one_password_view_02, null);
+			break;
+		case 3://预制量输入
+			break;
+		case 4://请提枪加油
+			mView_two = View.inflate(this, R.layout.one_pickgun_view_04, null);
+			break;
+		case 5:
+			mView_two = View.inflate(this, R.layout.one_confirmoilagain_view_05, null);
+			break;
+		case 6:
+			mView_two = View.inflate(this, R.layout.one_fillingup_view_06, null);
+			break;
+		case 7:
+			mView_two = View.inflate(this, R.layout.one_fillfinish_view_07, null);
+			break;
+		case 8:
+			mView_two = View.inflate(this, R.layout.one_payinfo_view_08, null);
+			break;
+		default:
+			break;
+		}
     	runOnUiThread(new Runnable() {
 			
 			@Override
@@ -257,4 +313,51 @@ public class MainActivity extends Activity implements OnClickListener{
 		}
 		
 	};
+	//处理输入密码页面逻辑
+	private void handle_02_view(Map map){
+		display_one(2);
+		int count = (Integer) map.get("count");
+		if(count > 6){
+			String pwd = "";
+			for(int i = 1; i<=count; i++){
+				pwd+="*";
+			}
+			final String password = pwd;
+			if(tv_password_one == null){
+				tv_password_one = (TextView) findViewById(R.id.tv_icpwd_one);	
+			}
+			runOnUiThread(new Runnable() {
+				
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					tv_password_one.setText(password);
+				}
+			});
+		}else{
+			if(tv_tips_one == null){
+				tv_tips_one = (TextView) findViewById(R.id.tv_tips_one);	
+			}
+			if(count == 11){
+				
+				runOnUiThread(new Runnable() {
+					
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						tv_tips_one.setText("密码错误，请重新输入");
+					}
+				});
+			}else if(count == 12){
+				runOnUiThread(new Runnable() {
+					
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						tv_tips_one.setText("密码错误次数超限");
+					}
+				});
+			}
+		}
+	}
 }

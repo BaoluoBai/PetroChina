@@ -1,11 +1,14 @@
 package com.example.petrochina.util;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import android.util.Log;
 
 import com.example.petrochina.model.Oil;
+import com.example.petrochina.model.Password;
 
 public class DataHexUtil {
 	public static final String TAG = "DataHexUtil";
@@ -22,12 +25,34 @@ public class DataHexUtil {
 		}
 		return oil_list;
 	}
+	
+	public Map handle_13_MSG(byte[] buffer){
+		Map map = new HashMap();
+		switch (buffer[2]) {
+		case 0x02:
+			map.put("view_number", 2);
+			map.put("count", buffer[3]);
+			break;
+		case 0x03:
+			map.put("view_number", 3);
+		default:
+			break;
+		}
+		return map;
+	}
+	
 	/**
 	 * 处理加油方式放回结果
 	 * @param buffer
 	 */
-	public void handlPaymentResult(byte[] buffer){
-		
+	public boolean handlPaymentResult(byte[] buffer){
+		boolean allow = false;
+		if(buffer[3] == 0x00){
+			allow = true;
+		}else{
+			allow = false;
+		}
+		return allow;
 	}
 	
 	public String handlePrice(byte[] buffer){
