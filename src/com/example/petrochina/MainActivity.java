@@ -14,6 +14,7 @@ import com.example.petrochina.util.SerialPortUtil.OnDataReceiveListener;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -63,10 +64,10 @@ public class MainActivity extends Activity implements OnClickListener{
 				// TODO Auto-generated method stub
 				switch (buffer[2]) {
 				case 0x13:
-					Map map = new HashMap();
+					Map<String, String> map = new HashMap<String, String>();
 					map = dataUtil.handle_13_MSG(buffer);
-					int view = (Integer) map.get("view_number");
-					if(view == 2){
+					String view = map.get("view_number");
+					if(view.equals("2")){
 						//处理输入密码页面逻辑
 						handle_02_view(map);	
 					}
@@ -89,29 +90,29 @@ public class MainActivity extends Activity implements OnClickListener{
     private void initView(){
     	mRelaytiveLayout_one = (RelativeLayout) findViewById(R.id.view_number_one);
     	mRelaytiveLayout_two = (RelativeLayout) findViewById(R.id.view_number_two);
-    	iv_oilcard_one = (ImageView) findViewById(R.id.tv_oilcard_one);
-    	iv_visacard_one = (ImageView) findViewById(R.id.tv_visacard_one);
-    	iv_cash_one = (ImageView) findViewById(R.id.tv_cash_one);
-    	iv_mobilepay_one = (ImageView) findViewById(R.id.tv_mobilepay_one);
-    	iv_oilcard_two = (ImageView) findViewById(R.id.tv_oilcard_two);
-    	iv_visacard_two = (ImageView) findViewById(R.id.tv_visacard_two);
-    	iv_cash_two = (ImageView) findViewById(R.id.tv_cash_two);
-    	iv_mobilepay_two = (ImageView) findViewById(R.id.tv_mobilepay_two);
-    	iv_oilcard_one.setOnClickListener(this);
-    	iv_visacard_one.setOnClickListener(this);
-    	iv_cash_one.setOnClickListener(this);
-    	iv_mobilepay_one.setOnClickListener(this);
-    	iv_oilcard_two.setOnClickListener(this);
-    	iv_visacard_two.setOnClickListener(this);
-    	iv_cash_two.setOnClickListener(this);
-    	iv_mobilepay_two.setOnClickListener(this);
-    	display_one(R.layout.one_payinfo_view_08);
-    	display_two(R.layout.two_payinfo_view_08);
-    	Timer tb = new Timer();
-    	tb.schedule(ts, 2000, 5000);
-    	
-    	Timer ss = new Timer();
-    	ss.schedule(tt, 1000, 7000);
+//    	iv_oilcard_one = (ImageView) findViewById(R.id.tv_oilcard_one);
+//    	iv_visacard_one = (ImageView) findViewById(R.id.tv_visacard_one);
+//    	iv_cash_one = (ImageView) findViewById(R.id.tv_cash_one);
+//    	iv_mobilepay_one = (ImageView) findViewById(R.id.tv_mobilepay_one);
+//    	iv_oilcard_two = (ImageView) findViewById(R.id.tv_oilcard_two);
+//    	iv_visacard_two = (ImageView) findViewById(R.id.tv_visacard_two);
+//    	iv_cash_two = (ImageView) findViewById(R.id.tv_cash_two);
+//    	iv_mobilepay_two = (ImageView) findViewById(R.id.tv_mobilepay_two);
+//    	iv_oilcard_one.setOnClickListener(this);
+//    	iv_visacard_one.setOnClickListener(this);
+//    	iv_cash_one.setOnClickListener(this);
+//    	iv_mobilepay_one.setOnClickListener(this);
+//    	iv_oilcard_two.setOnClickListener(this);
+//    	iv_visacard_two.setOnClickListener(this);
+//    	iv_cash_two.setOnClickListener(this);
+//    	iv_mobilepay_two.setOnClickListener(this);
+    	display_one(3);
+    	display_two(3);
+//    	Timer tb = new Timer();
+//    	tb.schedule(ts, 2000, 5000);
+//    	
+//    	Timer ss = new Timer();
+//    	ss.schedule(tt, 1000, 7000);
     }
 
 
@@ -161,7 +162,7 @@ public class MainActivity extends Activity implements OnClickListener{
 			mView_one = View.inflate(this, R.layout.one_password_view_02, null);
 			break;
 		case 3://预制量输入
-			
+			mView_one = View.inflate(this, R.layout.one_setting_view_03, null);
 			break;
 		case 4://请提枪加油
 			mView_one = View.inflate(this, R.layout.one_pickgun_view_04, null);
@@ -208,6 +209,7 @@ public class MainActivity extends Activity implements OnClickListener{
 			mView_two = View.inflate(this, R.layout.one_password_view_02, null);
 			break;
 		case 3://预制量输入
+			mView_two = View.inflate(this, R.layout.one_password_view_02, null);
 			break;
 		case 4://请提枪加油
 			mView_two = View.inflate(this, R.layout.one_pickgun_view_04, null);
@@ -314,9 +316,15 @@ public class MainActivity extends Activity implements OnClickListener{
 		
 	};
 	//处理输入密码页面逻辑
-	private void handle_02_view(Map map){
+	private void handle_02_view(Map<String, String> map){
 		display_one(2);
-		int count = (Integer) map.get("count");
+		String cnt = map.get("count");
+		int count = 0;
+		try {
+			count = Integer.parseInt(cnt);
+		} catch (NumberFormatException e) {
+		    Log.e("String转int", "不是整形的数");
+		}
 		if(count > 6){
 			String pwd = "";
 			for(int i = 1; i<=count; i++){

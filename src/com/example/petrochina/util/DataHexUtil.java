@@ -12,6 +12,7 @@ import com.example.petrochina.model.Password;
 
 public class DataHexUtil {
 	public static final String TAG = "DataHexUtil";
+	
 	public List<Oil> handleOilData(byte[] buffer){
 		int gunCount = getGunCount(buffer);
 		List<Oil> oil_list = new ArrayList<Oil>();
@@ -26,15 +27,17 @@ public class DataHexUtil {
 		return oil_list;
 	}
 	
-	public Map handle_13_MSG(byte[] buffer){
-		Map map = new HashMap();
+	public Map<String, String> handle_13_MSG(byte[] buffer){
+		Map<String, String> map = new HashMap<String, String>();
 		switch (buffer[2]) {
 		case 0x02:
-			map.put("view_number", 2);
-			map.put("count", buffer[3]);
+			byte[] cnt = subBytes(buffer, 3, 1);
+			int view = binary(cnt);
+			map.put("view_number", "2");
+			map.put("count", Integer.toHexString(view));
 			break;
 		case 0x03:
-			map.put("view_number", 3);
+			map.put("view_number", "3");
 		default:
 			break;
 		}

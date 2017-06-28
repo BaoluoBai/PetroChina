@@ -9,5 +9,14 @@
     <string name="oils">92#</string>
     <string name="gun">1号枪</string>
     <string name="password">******</string>
-
+    <string name="optiontips">操作提示：</string>
+    <string name="tipsone">1、请选择加油方式：定金额/定升数/加满</string>
+    <string name="tipstwo">2、请输入金额或升数</string>
+	<string name="inpress">请输入</string>
+	<string name="kindone">金额</string>
+	<string name="kindtwo">升数</string>
+    <string name="text">100</string>
+    <string name="danweione">元</string>
+	<string name="danweitwo">升</string>
+    
 </resources>
