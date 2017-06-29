@@ -90,10 +90,7 @@ public class MainActivity extends Activity implements OnClickListener{
     private void initView(){
     	mRelaytiveLayout_one = (RelativeLayout) findViewById(R.id.view_number_one);
     	mRelaytiveLayout_two = (RelativeLayout) findViewById(R.id.view_number_two);
-//    	iv_oilcard_one = (ImageView) findViewById(R.id.tv_oilcard_one);
-//    	iv_visacard_one = (ImageView) findViewById(R.id.tv_visacard_one);
-//    	iv_cash_one = (ImageView) findViewById(R.id.tv_cash_one);
-//    	iv_mobilepay_one = (ImageView) findViewById(R.id.tv_mobilepay_one);
+
 //    	iv_oilcard_two = (ImageView) findViewById(R.id.tv_oilcard_two);
 //    	iv_visacard_two = (ImageView) findViewById(R.id.tv_visacard_two);
 //    	iv_cash_two = (ImageView) findViewById(R.id.tv_cash_two);
@@ -154,6 +151,46 @@ public class MainActivity extends Activity implements OnClickListener{
     	switch (view_number) {
 		case 0://支付方式
 			mView_one = View.inflate(this, R.layout.one_payment_view_01, null);
+	    	iv_oilcard_one = (ImageView) mView_one.findViewById(R.id.tv_oilcard_one);
+	    	iv_oilcard_one.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					Log.d("点击事件", "iv_oilcard_one");
+					serialPortOne.sendBuffer(payment.MsgPayment(1));
+				}
+			});
+	    	iv_visacard_one = (ImageView) mView_one.findViewById(R.id.tv_visacard_one);
+	    	iv_visacard_one.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					Log.d("点击事件", "iv_visacard_one");
+					serialPortOne.sendBuffer(payment.MsgPayment(2));
+				}
+			});
+	    	iv_cash_one = (ImageView) mView_one.findViewById(R.id.tv_cash_one);
+	    	iv_cash_one.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					Log.d("点击事件", "iv_cash_one");
+					serialPortOne.sendBuffer(payment.MsgPayment(0));
+				}
+			});
+	    	iv_mobilepay_one = (ImageView) mView_one.findViewById(R.id.tv_mobilepay_one);
+	    	iv_mobilepay_one.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					Log.d("点击事件", "iv_mobilepay_one");
+					serialPortOne.sendBuffer(payment.MsgPayment(3));
+				}
+			});
 			break;
 		case 1://请插卡
 			mView_one = View.inflate(this, R.layout.one_insercard_view_30, null);
@@ -200,31 +237,31 @@ public class MainActivity extends Activity implements OnClickListener{
     public void display_two(int view_number){
     	switch (view_number) {
 		case 0://支付方式
-			mView_two = View.inflate(this, R.layout.one_payment_view_01, null);
+			mView_two = View.inflate(this, R.layout.two_payment_view_01, null);
 			break;
 		case 1://请插卡
-			mView_two = View.inflate(this, R.layout.one_insercard_view_30, null);
+			mView_two = View.inflate(this, R.layout.two_insertcard_view_30, null);
 			break;
 		case 2://请输入密码
-			mView_two = View.inflate(this, R.layout.one_password_view_02, null);
+			mView_two = View.inflate(this, R.layout.two_password_view_02, null);
 			break;
 		case 3://预制量输入
-			mView_two = View.inflate(this, R.layout.one_password_view_02, null);
+			mView_two = View.inflate(this, R.layout.two_setting_view_03, null);
 			break;
 		case 4://请提枪加油
-			mView_two = View.inflate(this, R.layout.one_pickgun_view_04, null);
+			mView_two = View.inflate(this, R.layout.two_pickgun_view_04, null);
 			break;
-		case 5:
-			mView_two = View.inflate(this, R.layout.one_confirmoilagain_view_05, null);
+		case 5://再次确认油品
+			mView_two = View.inflate(this, R.layout.two_confirmoilagain_view_05, null);
 			break;
-		case 6:
-			mView_two = View.inflate(this, R.layout.one_fillingup_view_06, null);
+		case 6://加油中
+			mView_two = View.inflate(this, R.layout.two_fillingup_view_06, null);
 			break;
-		case 7:
-			mView_two = View.inflate(this, R.layout.one_fillfinish_view_07, null);
+		case 7://加油完毕挂枪
+			mView_two = View.inflate(this, R.layout.two_fillfinish_view_07, null);
 			break;
-		case 8:
-			mView_two = View.inflate(this, R.layout.one_payinfo_view_08, null);
+		case 8://支付信息
+			mView_two = View.inflate(this, R.layout.two_payinfo_view_08, null);
 			break;
 		default:
 			break;

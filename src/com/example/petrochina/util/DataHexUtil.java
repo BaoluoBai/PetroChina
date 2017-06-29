@@ -38,6 +38,37 @@ public class DataHexUtil {
 			break;
 		case 0x03:
 			map.put("view_number", "3");
+			//1:获取余额长度
+			byte[] sizeOfMoney = subBytes(buffer, 4, 1);
+			int sizeOfMoney_int = binary(sizeOfMoney);
+			LogUtil.d(TAG, "余额长度为："+sizeOfMoney_int);
+			//2:获取余额字节数组
+			byte[] lastOfMoney = subBytes(buffer, 5, sizeOfMoney_int);
+			//3:开始解析余额字节数组
+			String tmpMoney = "";
+			byte[] tmpByte = new byte[1];
+			int tmpMoneyOfInt = 0;
+			String money = "";
+			for(int i = 0; i<lastOfMoney.length; i++){
+				tmpByte = subBytes(lastOfMoney, i, 1);
+				tmpMoneyOfInt = binary(tmpByte);
+				tmpMoney = Integer.toHexString(tmpMoneyOfInt);
+				if(tmpMoney.equals("0")){
+					if(money.equals("")){
+						money="";
+					}else{
+						money = money+"0";
+					}
+				}else{
+					if(i == (lastOfMoney.length-2)&&(money == "")){
+						money = "0."+tmpMoney;
+					}else{
+						money = money+tmpMoney;
+					}
+				}
+			}
+			map.put("money", money);
+			//4:解析卡状态
 		default:
 			break;
 		}

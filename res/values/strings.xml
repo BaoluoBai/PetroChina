@@ -18,5 +18,6 @@
     <string name="text">100</string>
     <string name="danweione">元</string>
 	<string name="danweitwo">升</string>
+	<string name="cardout">退卡</string>
     
 </resources>

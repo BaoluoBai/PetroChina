@@ -28,13 +28,13 @@ public class Payment {
 			
 		case 1:
 			msg[3] = PAY_IC;
-			
+			break;
 		case 2:
 			msg[3] = PAY_VISA;
-			
+			break;
 		case 3:
 			msg[3] = PAY_CELLPHONE;
-
+			break;
 		default:
 			break;
 		}
