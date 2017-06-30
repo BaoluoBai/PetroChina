@@ -38,9 +38,11 @@ public class MainActivity extends Activity implements OnClickListener{
 	private RelativeLayout mRelaytiveLayout_one, mRelaytiveLayout_two;
 	private View mView_one, mView_two;
 	private ImageView iv_oilcard_one, iv_visacard_one, iv_cash_one, iv_mobilepay_one,
-	iv_oilcard_two, iv_visacard_two, iv_cash_two, iv_mobilepay_two;
+	iv_oilcard_two, iv_visacard_two, iv_cash_two, iv_mobilepay_two, iv_setmoney_one,
+	iv_setfill_one, iv_full_one;
 	
-	private TextView tv_password_one, tv_tips_one;
+	private TextView tv_password_one, tv_tips_one, tv_lastmoney_one, tv_kindoftext_one,
+	tv_danwei_one;
 	
 	public SerialPortUtil serialPortOne = null;
 	public SerialPortUtil serialPortTwo = null;
@@ -70,6 +72,9 @@ public class MainActivity extends Activity implements OnClickListener{
 					if(view.equals("2")){
 						//处理输入密码页面逻辑
 						handle_02_view(map);	
+					}else if(view.equals("3")){
+						//处理预置量输入页面逻辑
+						handle_03_view(map);
 					}
 					break;
 				case 0x20:
@@ -362,7 +367,7 @@ public class MainActivity extends Activity implements OnClickListener{
 		} catch (NumberFormatException e) {
 		    Log.e("String转int", "不是整形的数");
 		}
-		if(count > 6){
+		if(count < 6){
 			String pwd = "";
 			for(int i = 1; i<=count; i++){
 				pwd+="*";
@@ -404,5 +409,68 @@ public class MainActivity extends Activity implements OnClickListener{
 				});
 			}
 		}
+	}
+	
+	//处理预置量输入页面逻辑
+	private void handle_03_view(Map<String, String> map){
+		display_one(3);
+		final String money = map.get("money");
+		tv_lastmoney_one = (TextView) mView_one.findViewById(R.id.tv_lastmoney_one);
+		iv_setmoney_one = (ImageView) mView_one.findViewById(R.id.iv_setmoney_one);
+		iv_setfill_one = (ImageView) mView_one.findViewById(R.id.iv_setfill_one);
+		iv_full_one = (ImageView) mView_one.findViewById(R.id.iv_full_one);
+		
+		tv_kindoftext_one = (TextView) mView_one.findViewById(R.id.tv_kindoftext_one);
+		tv_danwei_one = (TextView) mView_one.findViewById(R.id.tv_danwei_one);
+		
+		iv_setmoney_one.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				runOnUiThread(new Runnable() {
+					
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						tv_kindoftext_one.setText("金额");
+						tv_danwei_one.setText("元");
+					}
+				});
+			}
+		});
+		iv_setfill_one.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				LogUtil.d("点击事件", "iv_setfill_one");
+				runOnUiThread(new Runnable() {
+					
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						tv_kindoftext_one.setText("升数");
+						tv_danwei_one.setText("升");
+					}
+				});
+			}
+		});
+		iv_full_one.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				//执行加满逻辑
+			}
+		});
+		runOnUiThread(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				tv_lastmoney_one.setText("卡余额:"+money);
+			}
+		});
 	}
 }

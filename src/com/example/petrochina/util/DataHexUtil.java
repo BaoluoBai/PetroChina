@@ -53,20 +53,29 @@ public class DataHexUtil {
 				tmpByte = subBytes(lastOfMoney, i, 1);
 				tmpMoneyOfInt = binary(tmpByte);
 				tmpMoney = Integer.toHexString(tmpMoneyOfInt);
-				if(tmpMoney.equals("0")){
-					if(money.equals("")){
-						money="";
+				if(i == 0){
+					if(tmpMoney.equals("0")){
+						money = "";
 					}else{
-						money = money+"0";
+						money = tmpMoney;
+					}
+				}else if((lastOfMoney.length-1)==i) {
+					if(tmpMoney.length()==1){
+						tmpMoney = ".0"+tmpMoney;
+						money = money+tmpMoney;
+					}else{
+						money = money+"."+tmpMoney;
 					}
 				}else{
-					if(i == (lastOfMoney.length-2)&&(money == "")){
-						money = "0."+tmpMoney;
+					if(tmpMoney.length()==1){
+						tmpMoney = "0"+tmpMoney;
+						money = money+tmpMoney;
 					}else{
 						money = money+tmpMoney;
 					}
 				}
 			}
+			LogUtil.d(TAG, "卡余额："+money);
 			map.put("money", money);
 			//4:解析卡状态
 		default:
