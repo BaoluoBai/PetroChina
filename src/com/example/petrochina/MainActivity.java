@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -31,6 +32,8 @@ public class MainActivity extends Activity implements OnClickListener{
 	private static final String PORT_TWO = "/dev/ttymxc2";
 	private static final int BAUDRATE = 9600;
 	
+	public String param = "";
+	
 	int i = 0;
 	int j = 0;
 	
@@ -41,7 +44,11 @@ public class MainActivity extends Activity implements OnClickListener{
 	iv_oilcard_two, iv_visacard_two, iv_cash_two, iv_mobilepay_two, iv_setmoney_one,
 	iv_setfill_one, iv_full_one;
 	
-	private TextView tv_password_one, tv_tips_one, tv_lastmoney_one, tv_kindoftext_one,
+	private Button btn_outcard_one, btn_100_one, btn_200_one, btn_500_one, btn_1000_one,
+	btn_cancel_one, btn_confirm_one, btn_1_one, btn_2_one, btn_3_one, btn_4_one, btn_5_one,
+	btn_6_one, btn_7_one, btn_8_one, btn_9_one, btn_0_one, btn_delete_one, btn_sure_one;
+	
+	private TextView tv_param_one, tv_password_one, tv_tips_one, tv_lastmoney_one, tv_kindoftext_one,
 	tv_danwei_one;
 	
 	public SerialPortUtil serialPortOne = null;
@@ -416,6 +423,20 @@ public class MainActivity extends Activity implements OnClickListener{
 		display_one(3);
 		final String money = map.get("money");
 		tv_lastmoney_one = (TextView) mView_one.findViewById(R.id.tv_lastmoney_one);
+		initPageThree();
+		runOnUiThread(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				tv_lastmoney_one.setText("卡余额:"+money);
+			}
+		});
+	}
+	
+	private void initPageThree(){
+		
+		tv_param_one = (TextView) mView_one.findViewById(R.id.tv_param_one);
 		iv_setmoney_one = (ImageView) mView_one.findViewById(R.id.iv_setmoney_one);
 		iv_setfill_one = (ImageView) mView_one.findViewById(R.id.iv_setfill_one);
 		iv_full_one = (ImageView) mView_one.findViewById(R.id.iv_full_one);
@@ -423,6 +444,187 @@ public class MainActivity extends Activity implements OnClickListener{
 		tv_kindoftext_one = (TextView) mView_one.findViewById(R.id.tv_kindoftext_one);
 		tv_danwei_one = (TextView) mView_one.findViewById(R.id.tv_danwei_one);
 		
+		
+		btn_outcard_one = (Button) mView_one.findViewById(R.id.btn_cardout_one);
+		btn_100_one = (Button) mView_one.findViewById(R.id.btn_100_one);
+		btn_200_one = (Button) mView_one.findViewById(R.id.btn_200_one);
+		btn_500_one = (Button) mView_one.findViewById(R.id.btn_500_one);
+		btn_1000_one = (Button) mView_one.findViewById(R.id.btn_1000_one);
+		btn_cancel_one = (Button) mView_one.findViewById(R.id.btn_cancel_one);
+		btn_confirm_one = (Button) mView_one.findViewById(R.id.btn_confirm_one);
+		btn_1_one = (Button) mView_one.findViewById(R.id.btn_1_one);
+		btn_2_one = (Button) mView_one.findViewById(R.id.btn_2_one);
+		btn_3_one = (Button) mView_one.findViewById(R.id.btn_3_one);
+		btn_4_one = (Button) mView_one.findViewById(R.id.btn_4_one);
+		btn_5_one = (Button) mView_one.findViewById(R.id.btn_5_one);
+		btn_6_one = (Button) mView_one.findViewById(R.id.btn_6_one);
+		btn_7_one = (Button) mView_one.findViewById(R.id.btn_7_one);
+		btn_8_one = (Button) mView_one.findViewById(R.id.btn_8_one);
+		btn_9_one = (Button) mView_one.findViewById(R.id.btn_9_one);
+		btn_0_one = (Button) mView_one.findViewById(R.id.btn_0_one);
+		btn_delete_one = (Button) mView_one.findViewById(R.id.btn_delete_one);
+		btn_sure_one = (Button) mView_one.findViewById(R.id.btn_sure_one);
+		
+		
+		btn_outcard_one.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				//执行退卡逻辑
+			}
+		});
+		btn_100_one.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				//执行定金额100逻辑
+				param = "100";
+				tv_param_one.setText("100");
+			}
+		});
+		btn_200_one.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				//执行定金额200逻辑
+				tv_param_one.setText("200");
+			}
+		});
+		btn_500_one.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				//执行定金额500逻辑
+				tv_param_one.setText("500");
+			}
+		});
+		btn_1000_one.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				//执行定金额1000逻辑
+				tv_param_one.setText("1000");
+			}
+		});
+		btn_cancel_one.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				//执行取消逻辑
+				tv_param_one.setText("");
+			}
+		});
+		btn_confirm_one.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				//执行确认逻辑
+			}
+		});
+		btn_1_one.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		btn_2_one.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		btn_3_one.setOnClickListener(new OnClickListener() {
+	
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+		
+			}
+		});
+		btn_4_one.setOnClickListener(new OnClickListener() {
+	
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+		
+			}
+		});
+		btn_5_one.setOnClickListener(new OnClickListener() {
+	
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+		
+			}
+		});
+		btn_6_one.setOnClickListener(new OnClickListener() {
+	
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+		
+			}
+		});
+		btn_7_one.setOnClickListener(new OnClickListener() {
+	
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+		
+			}
+		});
+		btn_8_one.setOnClickListener(new OnClickListener() {
+	
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+		
+			}
+		});
+		btn_9_one.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+		
+			}
+		});
+		btn_0_one.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+		
+			}
+		});
+		
+		btn_delete_one.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		btn_sure_one.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		iv_setmoney_one.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -462,14 +664,6 @@ public class MainActivity extends Activity implements OnClickListener{
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				//执行加满逻辑
-			}
-		});
-		runOnUiThread(new Runnable() {
-			
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				tv_lastmoney_one.setText("卡余额:"+money);
 			}
 		});
 	}
