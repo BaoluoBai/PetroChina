@@ -11,7 +11,7 @@ public class Payment {
 	
 	public static final int PAY_CELLPHONE = 4;
 
-	public static final int COMMAND_CODE = 35;
+	public static final int COMMAND_CODE = 17;
 	
 	public static final int MSG_SIZE = 3;
 	
@@ -39,7 +39,7 @@ public class Payment {
 			break;
 		}
 		byte[] buffer = new byte[MSG_SIZE-1];
-		buffer = dhx.subBytes(msg, 2, MSG_SIZE-1);
+		buffer = dhx.subBytes(msg, 2, MSG_SIZE+1);
 		int vc = dhx.checkVC(buffer);
 		msg[MSG_SIZE+1] = (byte) vc;
 		

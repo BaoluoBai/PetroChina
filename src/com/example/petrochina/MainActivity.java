@@ -533,7 +533,11 @@ public class MainActivity extends Activity implements OnClickListener{
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				
+				param = tv_param_one.getText().toString();
+				if(param.length()<=4){
+					param = param+"1";
+					tv_param_one.setText(param);
+				}
 			}
 		});
 		btn_2_one.setOnClickListener(new OnClickListener() {
@@ -541,7 +545,11 @@ public class MainActivity extends Activity implements OnClickListener{
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				
+				param = tv_param_one.getText().toString();
+				if(param.length()<=4){
+					param = param+"2";
+					tv_param_one.setText(param);
+				}
 			}
 		});
 		btn_3_one.setOnClickListener(new OnClickListener() {
@@ -549,7 +557,12 @@ public class MainActivity extends Activity implements OnClickListener{
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-		
+				param = tv_param_one.getText().toString();
+				if(param.length()<=4){
+					param = param+"3";
+					tv_param_one.setText(param);
+				}
+				
 			}
 		});
 		btn_4_one.setOnClickListener(new OnClickListener() {
@@ -557,7 +570,11 @@ public class MainActivity extends Activity implements OnClickListener{
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-		
+				param = tv_param_one.getText().toString();
+				if(param.length()<=4){
+					param = param+"4";
+					tv_param_one.setText(param);
+				}
 			}
 		});
 		btn_5_one.setOnClickListener(new OnClickListener() {
@@ -565,7 +582,11 @@ public class MainActivity extends Activity implements OnClickListener{
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-		
+				param = tv_param_one.getText().toString();
+				if(param.length()<=4){
+					param = param+"5";
+					tv_param_one.setText(param);
+				}
 			}
 		});
 		btn_6_one.setOnClickListener(new OnClickListener() {
@@ -573,7 +594,11 @@ public class MainActivity extends Activity implements OnClickListener{
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-		
+				param = tv_param_one.getText().toString();
+				if(param.length()<=4){
+					param = param+"6";
+					tv_param_one.setText(param);
+				}
 			}
 		});
 		btn_7_one.setOnClickListener(new OnClickListener() {
@@ -581,7 +606,11 @@ public class MainActivity extends Activity implements OnClickListener{
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-		
+				param = tv_param_one.getText().toString();
+				if(param.length()<=4){
+					param = param+"7";
+					tv_param_one.setText(param);
+				}
 			}
 		});
 		btn_8_one.setOnClickListener(new OnClickListener() {
@@ -589,7 +618,11 @@ public class MainActivity extends Activity implements OnClickListener{
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-		
+				param = tv_param_one.getText().toString();
+				if(param.length()<=4){
+					param = param+"8";
+					tv_param_one.setText(param);
+				}
 			}
 		});
 		btn_9_one.setOnClickListener(new OnClickListener() {
@@ -597,7 +630,11 @@ public class MainActivity extends Activity implements OnClickListener{
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-		
+				param = tv_param_one.getText().toString();
+				if(param.length()<=4){
+					param = param+"9";
+					tv_param_one.setText(param);
+				}
 			}
 		});
 		btn_0_one.setOnClickListener(new OnClickListener() {
@@ -605,7 +642,13 @@ public class MainActivity extends Activity implements OnClickListener{
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-		
+				param = tv_param_one.getText().toString();
+				if(!param.trim().equals("")){
+					if(param.length()<=4){
+						param = param+"0";
+						tv_param_one.setText(param);
+					}
+				}
 			}
 		});
 		
@@ -614,7 +657,11 @@ public class MainActivity extends Activity implements OnClickListener{
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				
+				param = tv_param_one.getText().toString();
+				if(!param.trim().equals("")){
+					param = param.substring(0, param.length()-1);
+					tv_param_one.setText(param);
+				}
 			}
 		});
 		btn_sure_one.setOnClickListener(new OnClickListener() {
