@@ -9,5 +9,14 @@
 		android:layout_height="match_parent"
 		android:layout_centerHorizontal="true"
 		android:background="@drawable/filling_up"/>
+    
+    <Button 
+        android:id="@+id/btn_couzheng_one"
+        android:layout_width="300px"
+        android:layout_height="120px"
+        android:text="@string/couzheng"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20px"
+        android:textSize="40sp"/>
 
 </RelativeLayout>

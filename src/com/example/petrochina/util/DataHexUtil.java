@@ -78,6 +78,22 @@ public class DataHexUtil {
 			LogUtil.d(TAG, "卡余额："+money);
 			map.put("money", money);
 			//4:解析卡状态
+			break;
+		case 0x04:
+			map.put("view_number", "4");
+			break;
+		case 0x05:
+			map.put("view_number", "5");
+			break;
+		case 0x06:
+			map.put("view_number", "6");
+			break;
+		case 0x07:
+			map.put("view_number", "7");
+			break;
+		case 0x08:
+			map.put("view_number", "8");
+			break;
 		default:
 			break;
 		}
@@ -193,14 +209,17 @@ public class DataHexUtil {
 	
   	public int checkVC(byte[] buffer){
   		int vc = 0x00;
-  		for(int i=0;i<buffer.length-1;i++){
-  			if(i==0){
-  				vc = (buffer[i]&0xFF)^(buffer[i+1]&0xFF);
-  			}else{
-  				vc ^= (buffer[i]&0xFF);
-  			}
+  		if(buffer.length == 1){
+  			vc ^= (buffer[0]&0xFF);
+  		}else{
+  			for(int i=0;i<buffer.length-1;i++){
+  	  			if(i==0){
+  	  				vc = (buffer[i]&0xFF)^(buffer[i+1]&0xFF);
+  	  			}else{
+  	  				vc ^= (buffer[i]&0xFF);
+  	  			}
+  	  		}
   		}
-  		
 		return (vc&0xFF);
   		
   	}

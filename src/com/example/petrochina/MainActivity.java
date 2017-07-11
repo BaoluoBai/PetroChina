@@ -6,6 +6,8 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import com.example.petrochina.model.CouZheng;
+import com.example.petrochina.model.FillInfo;
 import com.example.petrochina.model.Payment;
 import com.example.petrochina.util.DataHexUtil;
 import com.example.petrochina.util.LogUtil;
@@ -46,7 +48,7 @@ public class MainActivity extends Activity implements OnClickListener{
 	
 	private Button btn_outcard_one, btn_100_one, btn_200_one, btn_500_one, btn_1000_one,
 	btn_cancel_one, btn_confirm_one, btn_1_one, btn_2_one, btn_3_one, btn_4_one, btn_5_one,
-	btn_6_one, btn_7_one, btn_8_one, btn_9_one, btn_0_one, btn_delete_one, btn_sure_one;
+	btn_6_one, btn_7_one, btn_8_one, btn_9_one, btn_0_one, btn_delete_one, btn_sure_one, btn_couzheng_one;
 	
 	private TextView tv_param_one, tv_password_one, tv_tips_one, tv_lastmoney_one, tv_kindoftext_one,
 	tv_danwei_one;
@@ -82,6 +84,16 @@ public class MainActivity extends Activity implements OnClickListener{
 					}else if(view.equals("3")){
 						//处理预置量输入页面逻辑
 						handle_03_view(map);
+					}else if(view.equals("4")){
+						display_one(4);
+					}else if(view.equals("5")){
+						display_one(5);
+					}else if(view.equals("6")){
+						one_handle_06_view();
+					}else if(view.equals("7")){
+						display_one(7);
+					}else if(view.equals("8")){
+						
 					}
 					break;
 				case 0x20:
@@ -236,12 +248,8 @@ public class MainActivity extends Activity implements OnClickListener{
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				i++;
 		    	mRelaytiveLayout_one.removeAllViews();
 		    	mRelaytiveLayout_one.addView(mView_one);
-		    	if(i>6){
-		    		i=0;
-		    	}
 			}
 		});
     }
@@ -283,87 +291,12 @@ public class MainActivity extends Activity implements OnClickListener{
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				j++;
 				mRelaytiveLayout_two.removeAllViews();
 		    	mRelaytiveLayout_two.addView(mView_two);
-		    	if(j>6){
-		    		j=0;
-		    	}
 			}
 		});
     }
     
-    TimerTask ts = new TimerTask() {
-		
-		@Override
-		public void run() {
-			// TODO Auto-generated method stub
-			switch (i) {
-			case 0:
-				display_one(R.layout.one_payment_view_01);
-				break;
-			case 1:
-				display_one(R.layout.one_password_view_02);
-				break;
-			case 2:
-				display_one(R.layout.one_pickgun_view_04);
-				break;
-			case 3:
-				display_one(R.layout.one_confirmoilagain_view_05);
-				break;
-			case 4:
-				display_one(R.layout.one_fillingup_view_06);
-				break;
-			case 5:
-				display_one(R.layout.one_fillfinish_view_07);
-				break;
-			case 6:
-				display_one(R.layout.one_payinfo_view_08);
-				break;
-
-			default:
-				break;
-			}
-
-		}
-		
-	};
-	
-	TimerTask tt = new TimerTask() {
-		
-		@Override
-		public void run() {
-			// TODO Auto-generated method stub
-			switch (j) {
-			case 0:
-				display_two(R.layout.two_payment_view_01);
-				break;
-			case 1:
-				display_two(R.layout.two_password_view_02);
-				break;
-			case 2:
-				display_two(R.layout.two_pickgun_view_04);
-				break;
-			case 3:
-				display_two(R.layout.two_confirmoilagain_view_05);
-				break;
-			case 4:
-				display_two(R.layout.two_fillingup_view_06);
-				break;
-			case 5:
-				display_two(R.layout.two_fillfinish_view_07);
-				break;
-			case 6:
-				display_two(R.layout.two_payinfo_view_08);
-				break;
-
-			default:
-				break;
-			}
-
-		}
-		
-	};
 	//处理输入密码页面逻辑
 	private void handle_02_view(Map<String, String> map){
 		display_one(2);
@@ -434,8 +367,26 @@ public class MainActivity extends Activity implements OnClickListener{
 		});
 	}
 	
-	private void initPageThree(){
+	private void one_handle_06_view(){
+		display_one(6);
+		final CouZheng cz = new CouZheng();
+		btn_couzheng_one = (Button) mView_one.findViewById(R.id.btn_couzheng_one);
+		btn_couzheng_one.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				serialPortOne.sendBuffer(cz.msg_39_couzheng());
+			}
+		});
+	}
+	
+	private void one_handle_08_view(Map<String, String> map){
 		
+	}
+	
+	private void initPageThree(){
+		final FillInfo fi = new FillInfo();
 		tv_param_one = (TextView) mView_one.findViewById(R.id.tv_param_one);
 		iv_setmoney_one = (ImageView) mView_one.findViewById(R.id.iv_setmoney_one);
 		iv_setfill_one = (ImageView) mView_one.findViewById(R.id.iv_setfill_one);
@@ -472,6 +423,7 @@ public class MainActivity extends Activity implements OnClickListener{
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				//执行退卡逻辑
+				serialPortOne.sendBuffer(fi.outcard());
 			}
 		});
 		btn_100_one.setOnClickListener(new OnClickListener() {
@@ -526,6 +478,14 @@ public class MainActivity extends Activity implements OnClickListener{
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				//执行确认逻辑
+				param = tv_param_one.getText().toString();
+				String type = tv_danwei_one.getText().toString();
+				if(type.equals("元")){
+					serialPortOne.sendBuffer(fi.MsgMoney(param));
+				}else if(type.equals("升")){
+					serialPortOne.sendBuffer(fi.MsgLitre(param));
+				}
+				
 			}
 		});
 		btn_1_one.setOnClickListener(new OnClickListener() {
@@ -669,7 +629,8 @@ public class MainActivity extends Activity implements OnClickListener{
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				
+				param = tv_param_one.getText().toString();
+				serialPortOne.sendBuffer(fi.MsgMoney(param));
 			}
 		});
 		iv_setmoney_one.setOnClickListener(new OnClickListener() {
@@ -711,6 +672,7 @@ public class MainActivity extends Activity implements OnClickListener{
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				//执行加满逻辑
+				serialPortOne.sendBuffer(fi.setFull());
 			}
 		});
 	}
