@@ -32,6 +32,14 @@
         android:text="@string/tipstwo"
         android:textColor="#FFFFFF"
         android:textSize="28sp" />
+    <TextView 
+        android:id="@+id/tv_lastmoney_two"
+        android:layout_width="match_parent"
+        android:layout_height="40px"
+        android:layout_marginTop="120px"
+        android:text="卡余额："
+        android:textColor="#FFFFFF"
+        android:textSize="28sp" />
 
     <ImageView
         android:id="@+id/iv_setmoney_two"
@@ -86,8 +94,7 @@
             android:layout_width="110px"
             android:layout_height="50px"
             android:background="#FFFFFF"
-            android:gravity="center_vertical|right"
-            android:text="@string/text"
+            android:gravity="center_vertical|left"
             android:textColor="#000000"
             android:textSize="28sp" />
 

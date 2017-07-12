@@ -15,7 +15,7 @@
         android:layout_marginRight="433px"
         android:background="@drawable/logo"/>
     
-    <VideoView 
+    <com.example.petrochina.ui.CustomView 
         android:id="@+id/vv_advertisement"
         android:layout_width="match_parent"
         android:layout_height="600px"/>

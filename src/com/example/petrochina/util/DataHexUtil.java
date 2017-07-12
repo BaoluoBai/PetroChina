@@ -93,6 +93,14 @@ public class DataHexUtil {
 			break;
 		case 0x08:
 			map.put("view_number", "8");
+			byte[] tempMoney = subBytes(buffer, 5, 4);
+			String cutMoney = handleRMB(tempMoney);
+			LogUtil.d(TAG, "扣款为:"+cutMoney);
+			map.put("cut_money", cutMoney);
+			byte[] tempLastMoney = subBytes(buffer, 10, 4);
+			String lastMoney = handleRMB(tempLastMoney);
+			LogUtil.d(TAG, "余额为:"+lastMoney);
+			map.put("last_money", lastMoney);
 			break;
 		default:
 			break;
@@ -242,4 +250,38 @@ public class DataHexUtil {
     private static byte charToByte(char c) {
         return (byte) "0123456789ABCDEF".indexOf(c);
     }
+    
+    public String handleRMB(byte[] buffer){
+ 		byte[] rmb = subBytes(buffer, 1, 1);
+			// tv.setText(binary);
+		int rmb_binary = binary(rmb);
+		String str=Integer.toHexString(rmb_binary);
+		if(str.equals("0")){
+			str = "";
+		}
+		
+		rmb = subBytes(buffer, 2, 1);
+		rmb_binary = binary(rmb);
+		String number_2 = Integer.toHexString(rmb_binary);
+		if(number_2.length() == 1){
+			number_2 = "0"+number_2;
+		}
+		str += number_2;
+		rmb = subBytes(buffer, 3, 1);
+		rmb_binary = binary(rmb);
+		String number_3 = Integer.toHexString(rmb_binary);
+		if(number_3.length() == 1){
+			number_3 = "0"+number_3;
+		}
+		str += number_3;
+		
+		rmb = subBytes(buffer, 3, 1);
+		rmb_binary = binary(rmb);
+		String number_4 = Integer.toHexString(rmb_binary);
+		if(number_4.length() == 1){
+			number_4 = "0"+number_4;
+		}
+		str += "."+number_4;
+		return str;
+ 	}
 }

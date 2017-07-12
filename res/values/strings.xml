@@ -20,5 +20,7 @@
 	<string name="danweitwo">升</string>
 	<string name="cardout">退卡</string>
 	<string name="couzheng">凑整</string>
+	<string name="disktip">U盘已插入</string>
+	<string name="copying">正在复制</string>
     
 </resources>
