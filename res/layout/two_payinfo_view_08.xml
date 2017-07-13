@@ -34,7 +34,8 @@
         android:layout_height="84dp"
         android:layout_marginTop="565dp"
         android:layout_marginLeft="75dp"
-        android:text="yes"/>
+        style="@null"
+        android:background="#00000000"/>
 
     <Button
         android:id="@+id/btn_printno_two"
@@ -43,6 +44,15 @@
         android:layout_alignBaseline="@+id/btn_printyes_two"
         android:layout_alignBottom="@+id/btn_printyes_two"
         android:layout_marginLeft="296dp" 
-        android:text="no"/>
+        style="@null"
+        android:background="#00000000"/>
+    
+    <ImageView 
+        android:id="@+id/iv_float_one"
+        android:layout_height="500px"
+        android:layout_width="match_parent"
+        android:src="@drawable/bg_float"
+        android:layout_alignParentBottom="true"
+        android:visibility="gone"/>
 
 </RelativeLayout>

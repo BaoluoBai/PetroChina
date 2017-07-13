@@ -29,7 +29,7 @@ public class DataHexUtil {
 	
 	public Map<String, String> handle_13_MSG(byte[] buffer){
 		Map<String, String> map = new HashMap<String, String>();
-		switch (buffer[2]) {
+		switch (buffer[3] & 0xFF) {
 		case 0x02:
 			byte[] cnt = subBytes(buffer, 3, 1);
 			int view = binary(cnt);
@@ -93,11 +93,12 @@ public class DataHexUtil {
 			break;
 		case 0x08:
 			map.put("view_number", "8");
-			byte[] tempMoney = subBytes(buffer, 5, 4);
+			byte[] tempMoney = subBytes(buffer, 5, buffer[4] & 0xFF);
 			String cutMoney = handleRMB(tempMoney);
 			LogUtil.d(TAG, "扣款为:"+cutMoney);
 			map.put("cut_money", cutMoney);
-			byte[] tempLastMoney = subBytes(buffer, 10, 4);
+			int length = (buffer[4] & 0xFF)+4+1;
+			byte[] tempLastMoney = subBytes(buffer, (buffer[4] & 0xFF)+5+1, (buffer[length] & 0xFF));
 			String lastMoney = handleRMB(tempLastMoney);
 			LogUtil.d(TAG, "余额为:"+lastMoney);
 			map.put("last_money", lastMoney);
@@ -182,7 +183,7 @@ public class DataHexUtil {
 	    return bs;  
 	}
 	
-	private int binary(byte bys[]) {
+	public int binary(byte bys[]) {
   		int big_bytesToInt = little_bytesToInt(bys);
   		return big_bytesToInt;
   	}
@@ -252,36 +253,22 @@ public class DataHexUtil {
     }
     
     public String handleRMB(byte[] buffer){
- 		byte[] rmb = subBytes(buffer, 1, 1);
-			// tv.setText(binary);
-		int rmb_binary = binary(rmb);
-		String str=Integer.toHexString(rmb_binary);
-		if(str.equals("0")){
-			str = "";
-		}
-		
-		rmb = subBytes(buffer, 2, 1);
-		rmb_binary = binary(rmb);
-		String number_2 = Integer.toHexString(rmb_binary);
-		if(number_2.length() == 1){
-			number_2 = "0"+number_2;
-		}
-		str += number_2;
-		rmb = subBytes(buffer, 3, 1);
-		rmb_binary = binary(rmb);
-		String number_3 = Integer.toHexString(rmb_binary);
-		if(number_3.length() == 1){
-			number_3 = "0"+number_3;
-		}
-		str += number_3;
-		
-		rmb = subBytes(buffer, 3, 1);
-		rmb_binary = binary(rmb);
-		String number_4 = Integer.toHexString(rmb_binary);
-		if(number_4.length() == 1){
-			number_4 = "0"+number_4;
-		}
-		str += "."+number_4;
+    	String str = "";
+    	for(int i = 0; i<buffer.length; i++){
+    		//截取需要解析的byte数组
+    		byte[] rmb = subBytes(buffer, i, 1);
+    		//逐个解析
+    		int rmb_binary = binary(rmb);
+    		String tmp=Integer.toHexString(rmb_binary);
+    		if(i==buffer.length-1){
+    			str = str+"."+tmp;
+    		}else{
+    			str += tmp;
+    		}
+    		
+    	}
+    	LogUtil.d(TAG, "金额为:"+str);
+    	
 		return str;
  	}
 }

@@ -76,7 +76,8 @@ public class MainActivity extends Activity{
 	public DataHexUtil dataUtil = null;
 	public Payment payment;
 	private CustomView vv_ad;
-	List<String> filename = new ArrayList<String>(); 
+	List<String> filename = new ArrayList<String>();
+	
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,11 +90,13 @@ public class MainActivity extends Activity{
         dataUtil = new DataHexUtil();
         initView();
         serialPortOne.setOnDataReceiveListener(new OnDataReceiveListener() {
-			
+        	
 			@Override
 			public void onDataReceive(byte[] buffer, int size) {
 				// TODO Auto-generated method stub
-				switch (buffer[2]) {
+				int i = buffer[2] & 0xFF;
+				LogUtil.d("命令码:", i+"");
+				switch (buffer[2] & 0xFF) {
 				case 0x13:
 					Map<String, String> map = new HashMap<String, String>();
 					map = dataUtil.handle_13_MSG(buffer);
@@ -614,18 +617,33 @@ public class MainActivity extends Activity{
 		
 	}
 	
-	private void one_handle_32_view(List<Oil> list){
+	private void one_handle_32_view(final List<Oil> list){
 		if(list.size() == 1){
-			tv_unitprice_one.setText(list.get(0).getUnit_price());
-			tv_oils_one.setText(list.get(0).getOil_kind());
-			tv_gun_one.setText(list.get(0).getGun_number());
+			runOnUiThread(new Runnable() {
+				
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					tv_unitprice_one.setText(list.get(0).getUnit_price()+"元/升");
+					tv_oils_one.setText(list.get(0).getOil_kind());
+					tv_gun_one.setText(list.get(0).getGun_number());
+				}
+			});
+			
 		}else if(list.size() == 2){
-			tv_unitprice_one.setText(list.get(0).getUnit_price());
-			tv_oils_one.setText(list.get(0).getOil_kind());
-			tv_gun_one.setText(list.get(0).getGun_number());
-			tv_unitprice_two.setText(list.get(1).getUnit_price());
-			tv_oils_two.setText(list.get(1).getOil_kind());
-			tv_gun_two.setText(list.get(1).getGun_number());
+			runOnUiThread(new Runnable() {
+				
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					tv_unitprice_one.setText(list.get(0).getUnit_price()+"元/升");
+					tv_oils_one.setText(list.get(0).getOil_kind());
+					tv_gun_one.setText(list.get(0).getGun_number());
+					tv_unitprice_two.setText(list.get(1).getUnit_price()+"元/升");
+					tv_oils_two.setText(list.get(1).getOil_kind());
+					tv_gun_two.setText(list.get(1).getGun_number());
+				}
+			});
 		}
 	}
 	
@@ -636,7 +654,7 @@ public class MainActivity extends Activity{
 				@Override
 				public void run() {
 					// TODO Auto-generated method stub
-					tv_unitprice_four.setText(list.get(0).getUnit_price());
+					tv_unitprice_four.setText(list.get(0).getUnit_price()+"元/升");
 					tv_oils_four.setText(list.get(0).getOil_kind());
 					tv_gun_four.setText(list.get(0).getGun_number());
 				}
@@ -648,10 +666,10 @@ public class MainActivity extends Activity{
 				@Override
 				public void run() {
 					// TODO Auto-generated method stub
-					tv_unitprice_three.setText(list.get(0).getUnit_price());
+					tv_unitprice_three.setText(list.get(0).getUnit_price()+"元/升");
 					tv_oils_three.setText(list.get(0).getOil_kind());
 					tv_gun_three.setText(list.get(0).getGun_number());
-					tv_unitprice_four.setText(list.get(1).getUnit_price());
+					tv_unitprice_four.setText(list.get(1).getUnit_price()+"元/升");
 					tv_oils_four.setText(list.get(1).getOil_kind());
 					tv_gun_four.setText(list.get(1).getGun_number());
 				}
