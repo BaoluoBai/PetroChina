@@ -1,5 +1,6 @@
 package com.example.petrochina.util;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,11 +31,13 @@ public class DataHexUtil {
 	public Map<String, String> handle_13_MSG(byte[] buffer){
 		Map<String, String> map = new HashMap<String, String>();
 		switch (buffer[3] & 0xFF) {
+		case 0x01:
+			map.put("view_number", "1");
+			break;
 		case 0x02:
-			byte[] cnt = subBytes(buffer, 3, 1);
-			int view = binary(cnt);
+			int view = buffer[4]&0xFF;
 			map.put("view_number", "2");
-			map.put("count", Integer.toHexString(view));
+			map.put("count", view+"");
 			break;
 		case 0x03:
 			map.put("view_number", "3");
@@ -97,13 +100,42 @@ public class DataHexUtil {
 			String cutMoney = handleRMB(tempMoney);
 			LogUtil.d(TAG, "扣款为:"+cutMoney);
 			map.put("cut_money", cutMoney);
-			int length = (buffer[4] & 0xFF)+4+1;
-			byte[] tempLastMoney = subBytes(buffer, (buffer[4] & 0xFF)+5+1, (buffer[length] & 0xFF));
+			int point = (buffer[4] & 0xFF)+4+1;
+			byte[] tempLastMoney = subBytes(buffer, (buffer[4] & 0xFF)+5+1, (buffer[point] & 0xFF));
 			String lastMoney = handleRMB(tempLastMoney);
 			LogUtil.d(TAG, "余额为:"+lastMoney);
 			map.put("last_money", lastMoney);
+			LogUtil.d(TAG, ""+(buffer[1] & 0xFF));
+			int printyesorno = buffer[(buffer[1] & 0xFF)]&0xFF;
+			if(printyesorno == 0){
+				map.put("yes_no", "no");
+			}else if(printyesorno == 1){
+				map.put("yes_no", "yes");
+			}else{
+				map.put("yes_no", "error");
+			}
+			break;
+		case 0x31:
+			byte[] tmp_collection = subBytes(buffer, 5, (buffer[4]&0xFF));
+			String collection = handleCollection(tmp_collection);
+			map.put("view_number", "31");
+			map.put("collection", collection);
+			int lenghtOfCol = buffer[4]&0xFF;
+			int startOfWel = 6+lenghtOfCol;
+			int lengthOfWel = buffer[5+lenghtOfCol]&0XFF;
+			byte[] tmp_welcome = subBytes(buffer, startOfWel, lengthOfWel);
+			String welcome = "";
+			try {
+				welcome = new String(tmp_welcome, "GBK");
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				welcome = "";
+			}
+			map.put("welcome", welcome);
 			break;
 		default:
+			map.put("view_number", "0");
 			break;
 		}
 		return map;
@@ -115,7 +147,7 @@ public class DataHexUtil {
 	 */
 	public boolean handlPaymentResult(byte[] buffer){
 		boolean allow = false;
-		if(buffer[3] == 0x00){
+		if((buffer[3]&0xFF) == 0x00){
 			allow = true;
 		}else{
 			allow = false;
@@ -225,7 +257,7 @@ public class DataHexUtil {
   	  			if(i==0){
   	  				vc = (buffer[i]&0xFF)^(buffer[i+1]&0xFF);
   	  			}else{
-  	  				vc ^= (buffer[i]&0xFF);
+  	  				vc ^= (buffer[i+1]&0xFF);
   	  			}
   	  		}
   		}
@@ -271,4 +303,17 @@ public class DataHexUtil {
     	
 		return str;
  	}
+    
+    public String handleCollection(byte[] buffer){
+    	String str = "";
+    	for(int i = 0; i<buffer.length; i++){
+    		byte[] collection = subBytes(buffer, i, 1);
+    		//逐个解析
+    		int col_binary = binary(collection);
+    		String tmp=Integer.toHexString(col_binary);
+    		str +=tmp;
+    	}
+    	LogUtil.d(TAG, "积分为:"+str);
+    	return str;
+    }
 }

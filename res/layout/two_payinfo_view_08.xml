@@ -14,7 +14,7 @@
         android:layout_marginTop="135dp"
         android:text="1234.56"
         android:textColor="#FFFFFF"
-        android:textSize="45sp" />
+        android:textSize="40sp" />
 
     <TextView
         android:id="@+id/tv_yue_two"
@@ -26,7 +26,7 @@
         android:layout_marginTop="240dp"
         android:text="6666.56"
         android:textColor="#FFFFFF"
-        android:textSize="45sp" />
+        android:textSize="40sp" />
 
     <Button
         android:id="@+id/btn_printyes_two"
@@ -48,7 +48,7 @@
         android:background="#00000000"/>
     
     <ImageView 
-        android:id="@+id/iv_float_one"
+        android:id="@+id/iv_float_two"
         android:layout_height="500px"
         android:layout_width="match_parent"
         android:src="@drawable/bg_float"

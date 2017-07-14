@@ -11,15 +11,15 @@ public class Payment {
 	
 	public static final int PAY_CELLPHONE = 4;
 
-	public static final int COMMAND_CODE = 17;
+	public static final int COMMAND_CODE = 35;
 	
-	public static final int MSG_SIZE = 4;
+	public static final int MSG_SIZE = 3;
 	
 	public byte[] MsgPayment(int way){
 		DataHexUtil dhx = new DataHexUtil();
 		byte[] msg = new byte[2+MSG_SIZE];
 		msg[0] = (byte) 0xfd;
-		msg[1] = 3;
+		msg[1] = MSG_SIZE;
 		msg[2] = COMMAND_CODE;
 		switch (way) {
 		case 0:

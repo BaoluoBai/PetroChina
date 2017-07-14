@@ -3,7 +3,7 @@ package com.example.petrochina.model;
 import com.example.petrochina.util.DataHexUtil;
 
 public class PrintSelectOrNot {
-	public static final int MSG_SIZE = 2;
+	public static final int MSG_SIZE = 3;
 	
 	public static final int COMMAND_CODE = 38;
 	

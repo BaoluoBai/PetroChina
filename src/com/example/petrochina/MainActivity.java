@@ -28,6 +28,7 @@ import android.content.IntentFilter;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.media.MediaPlayer.OnPreparedListener;
+import android.opengl.Visibility;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -48,6 +49,7 @@ public class MainActivity extends Activity{
 	private static final int BAUDRATE = 9600;
 	
 	public String param = "";
+	String password = "";
 	public int video_position = 0;
 	
 	public MessageReceiver mMessageReceiver; 
@@ -56,7 +58,8 @@ public class MainActivity extends Activity{
 	private View mView_one, mView_two;
 	private ImageView iv_oilcard_one, iv_visacard_one, iv_cash_one, iv_mobilepay_one,
 	iv_oilcard_two, iv_visacard_two, iv_cash_two, iv_mobilepay_two, iv_setmoney_one,
-	iv_setfill_one, iv_full_one, iv_setmoney_two,iv_setfill_two, iv_full_two;
+	iv_setfill_one, iv_full_one, iv_setmoney_two,iv_setfill_two, iv_full_two, iv_float_one,
+	iv_float_two;
 	
 	private Button btn_outcard_one, btn_100_one, btn_200_one, btn_500_one, btn_1000_one,
 	btn_cancel_one, btn_confirm_one, btn_1_one, btn_2_one, btn_3_one, btn_4_one, btn_5_one,
@@ -69,7 +72,8 @@ public class MainActivity extends Activity{
 	private TextView tv_param_one, tv_password_one, tv_tips_one, tv_lastmoney_one, tv_kindoftext_one,
 	tv_danwei_one, tv_paymoney_one, tv_yue_one, tv_password_two, tv_tips_two, tv_param_two, tv_kindoftext_two,
 	tv_danwei_two, tv_lastmoney_two, tv_paymoney_two, tv_yue_two, tv_unitprice_one, tv_oils_one, tv_gun_one,
-	tv_unitprice_two, tv_oils_two, tv_gun_two, tv_unitprice_three, tv_oils_three, tv_gun_three, tv_unitprice_four, tv_oils_four, tv_gun_four;
+	tv_unitprice_two, tv_oils_two, tv_gun_two, tv_unitprice_three, tv_oils_three, tv_gun_three, tv_unitprice_four, 
+	tv_oils_four, tv_gun_four, tv_welcome_one, tv_welcome_two, tv_collectionpoint_one, tv_collectionpoint_two;
 	
 	public SerialPortUtil serialPortOne = null;
 	public SerialPortUtil serialPortTwo = null;
@@ -101,7 +105,9 @@ public class MainActivity extends Activity{
 					Map<String, String> map = new HashMap<String, String>();
 					map = dataUtil.handle_13_MSG(buffer);
 					String view = map.get("view_number");
-					if(view.equals("2")){
+					if(view.equals("1")){
+						display_one(0);
+					}else if(view.equals("2")){
 						//处理输入密码页面逻辑
 						one_handle_02_view(map);	
 					}else if(view.equals("3")){
@@ -117,6 +123,10 @@ public class MainActivity extends Activity{
 						display_one(7);
 					}else if(view.equals("8")){
 						one_handle_08_view(map);
+					}else if(view.equals("31")){
+						one_handle_31_view(map);
+					}else{
+						LogUtil.d("报文", "错误报文");
 					}
 					break;
 				case 0x20:
@@ -127,7 +137,7 @@ public class MainActivity extends Activity{
 				case 0x23:
 					boolean allow = dataUtil.handlPaymentResult(buffer);
 					if(allow == true){
-						display_one(R.layout.one_insercard_view_30);
+						display_one(1);
 					}
 				default:
 					break;
@@ -145,7 +155,9 @@ public class MainActivity extends Activity{
 					Map<String, String> map = new HashMap<String, String>();
 					map = dataUtil.handle_13_MSG(buffer);
 					String view = map.get("view_number");
-					if(view.equals("2")){
+					if(view.equals("1")){
+						display_two(0);
+					}else if(view.equals("2")){
 						//处理输入密码页面逻辑
 						two_handle_02_view(map);	
 					}else if(view.equals("3")){
@@ -161,6 +173,10 @@ public class MainActivity extends Activity{
 						display_two(7);
 					}else if(view.equals("8")){
 						two_handle_08_view(map);
+					}else if(view.equals("31")){
+						two_handle_31_view(map);
+					}else{
+						LogUtil.d("报文", "错误报文");
 					}
 					break;
 				case 0x20:
@@ -171,7 +187,7 @@ public class MainActivity extends Activity{
 				case 0x23:
 					boolean allow = dataUtil.handlPaymentResult(buffer);
 					if(allow == true){
-						display_two(R.layout.one_insercard_view_30);
+						display_two(1);
 					}
 				default:
 					break;
@@ -212,6 +228,10 @@ public class MainActivity extends Activity{
     	mRelaytiveLayout_one = (RelativeLayout) findViewById(R.id.view_number_one);
     	mRelaytiveLayout_two = (RelativeLayout) findViewById(R.id.view_number_two);
     	vv_ad = (CustomView) findViewById(R.id.vv_advertisement);
+    	tv_welcome_one = (TextView) findViewById(R.id.tv_welcome_one);
+    	tv_welcome_two = (TextView) findViewById(R.id.tv_welcome_two);
+    	tv_collectionpoint_one = (TextView) findViewById(R.id.tv_collectionpoint_one);
+    	tv_collectionpoint_two = (TextView) findViewById(R.id.tv_collectionpoint_two);
     	display_one(0);
     	display_two(0);
     }
@@ -221,6 +241,15 @@ public class MainActivity extends Activity{
     	switch (view_number) {
 		case 0://支付方式
 			mView_one = View.inflate(this, R.layout.one_payment_view_01, null);
+			runOnUiThread(new Runnable() {
+				
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					tv_welcome_one.setText("");
+					tv_collectionpoint_one.setText("");
+				}
+			});
 	    	iv_oilcard_one = (ImageView) mView_one.findViewById(R.id.tv_oilcard_one);
 	    	iv_oilcard_one.setOnClickListener(new OnClickListener() {
 				
@@ -296,6 +325,7 @@ public class MainActivity extends Activity{
 			break;
 		case 8:
 			mView_one = View.inflate(this, R.layout.one_payinfo_view_08, null);
+			one_initView_eight();
 			break;
 		default:
 			break;
@@ -305,7 +335,7 @@ public class MainActivity extends Activity{
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-		    	mRelaytiveLayout_one.removeAllViews();
+				mRelaytiveLayout_one.removeAllViews();
 		    	mRelaytiveLayout_one.addView(mView_one);
 			}
 		});
@@ -315,6 +345,15 @@ public class MainActivity extends Activity{
     	switch (view_number) {
 		case 0://支付方式
 			mView_two = View.inflate(this, R.layout.two_payment_view_01, null);
+			runOnUiThread(new Runnable() {
+				
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					tv_welcome_two.setText("");
+					tv_collectionpoint_two.setText("");
+				}
+			});
 			iv_oilcard_two = (ImageView) mView_two.findViewById(R.id.tv_oilcard_two);
 	    	iv_oilcard_two.setOnClickListener(new OnClickListener() {
 				
@@ -381,7 +420,7 @@ public class MainActivity extends Activity{
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
-					serialPortOne.sendBuffer(cz.msg_39_couzheng());
+					serialPortTwo.sendBuffer(cz.msg_39_couzheng());
 				}
 			});
 			break;
@@ -390,6 +429,7 @@ public class MainActivity extends Activity{
 			break;
 		case 8://支付信息
 			mView_two = View.inflate(this, R.layout.two_payinfo_view_08, null);
+			two_initView_eight();
 			break;
 		default:
 			break;
@@ -415,28 +455,28 @@ public class MainActivity extends Activity{
 		} catch (NumberFormatException e) {
 		    Log.e("String转int", "不是整形的数");
 		}
-		if(count < 6){
+		if(count <= 6){
 			String pwd = "";
-			for(int i = 1; i<=count; i++){
+			for(int i = 0; i<count; i++){
 				pwd+="*";
 			}
-			final String password = pwd;
-			if(tv_password_one == null){
-				tv_password_one = (TextView) findViewById(R.id.tv_icpwd_one);	
-			}
+			password = pwd;
+			tv_password_one = (TextView) findViewById(R.id.tv_icpwd_one);	
+			LogUtil.d("控件1", "tv_password_one");
 			runOnUiThread(new Runnable() {
 				
 				@Override
 				public void run() {
+					tv_password_one = (TextView) findViewById(R.id.tv_icpwd_one);
+					LogUtil.d("控件2", "tv_password_one");
 					// TODO Auto-generated method stub
+					LogUtil.d("主线程", password);
 					tv_password_one.setText(password);
 				}
 			});
 		}else{
-			if(tv_tips_one == null){
-				tv_tips_one = (TextView) findViewById(R.id.tv_tips_one);	
-			}
-			if(count == 11){
+			tv_tips_one = (TextView) findViewById(R.id.tv_tips_one);	
+			if(count == 17){
 				
 				runOnUiThread(new Runnable() {
 					
@@ -446,7 +486,7 @@ public class MainActivity extends Activity{
 						tv_tips_one.setText("密码错误，请重新输入");
 					}
 				});
-			}else if(count == 12){
+			}else if(count == 18){
 				runOnUiThread(new Runnable() {
 					
 					@Override
@@ -468,28 +508,26 @@ public class MainActivity extends Activity{
 		} catch (NumberFormatException e) {
 		    Log.e("String转int", "不是整形的数");
 		}
-		if(count < 6){
+		if(count <= 6){
 			String pwd = "";
-			for(int i = 1; i<=count; i++){
+			for(int i = 0; i<count; i++){
 				pwd+="*";
 			}
-			final String password = pwd;
-			if(tv_password_two == null){
-				tv_password_two = (TextView) findViewById(R.id.tv_icpwd_two);	
-			}
+			password = pwd;
 			runOnUiThread(new Runnable() {
 				
 				@Override
 				public void run() {
+					tv_password_two = (TextView) findViewById(R.id.tv_icpwd_two);	
+					// TODO Auto-generated method stub
+					LogUtil.d("主线程", password);
 					// TODO Auto-generated method stub
 					tv_password_two.setText(password);
 				}
 			});
 		}else{
-			if(tv_tips_two == null){
-				tv_tips_two = (TextView) findViewById(R.id.tv_tips_two);	
-			}
-			if(count == 11){
+			tv_tips_two = (TextView) findViewById(R.id.tv_tips_two);	
+			if(count == 17){
 				
 				runOnUiThread(new Runnable() {
 					
@@ -499,7 +537,7 @@ public class MainActivity extends Activity{
 						tv_tips_two.setText("密码错误，请重新输入");
 					}
 				});
-			}else if(count == 12){
+			}else if(count == 18){
 				runOnUiThread(new Runnable() {
 					
 					@Override
@@ -546,75 +584,111 @@ public class MainActivity extends Activity{
 		display_one(8);
 		tv_paymoney_one = (TextView) mView_one.findViewById(R.id.tv_paymoney_one);
 		tv_yue_one = (TextView) mView_one.findViewById(R.id.tv_yue_one);
+		iv_float_one = (ImageView) mView_one.findViewById(R.id.iv_float_one);
+		if(map.get("yes_no").equals("no")){
+			runOnUiThread(new Runnable() {
+				
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					tv_paymoney_one.setText(map.get("cut_money"));
+					tv_yue_one.setText(map.get("last_money"));
+					iv_float_one.setVisibility(View.VISIBLE);
+				}
+			});
+		}else if(map.get("yes_no").equals("yse")){
+			runOnUiThread(new Runnable() {
+				
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					tv_paymoney_one.setText(map.get("cut_money"));
+					tv_yue_one.setText(map.get("last_money"));
+					iv_float_one.setVisibility(View.GONE);
+				}
+			});
+		}else{
+			runOnUiThread(new Runnable() {
+				
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					tv_paymoney_one.setText(map.get("cut_money"));
+					tv_yue_one.setText(map.get("last_money"));
+					LogUtil.d("报文", "错误报文");
+					iv_float_one.setVisibility(View.VISIBLE);
+				}
+			});
+		}
+		
+		
+		
+	}
+	
+	private void one_handle_31_view(final Map<String, String> map){
 		runOnUiThread(new Runnable() {
 			
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				tv_paymoney_one.setText(map.get("cut_money"));
-				tv_yue_one.setText(map.get("last_money"));
+				tv_welcome_one.setText(map.get("welcome"));
+				tv_collectionpoint_one.setText("积分:"+map.get("collection")+"点");
 			}
 		});
-		btn_printyes_one = (Button) mView_one.findViewById(R.id.btn_printyes_one);
-		btn_printyes_one.setOnClickListener(new OnClickListener() {
+	}
+	
+	private void two_handle_31_view(final Map<String, String> map){
+		runOnUiThread(new Runnable() {
 			
 			@Override
-			public void onClick(View v) {
-				PrintSelectOrNot psn = new PrintSelectOrNot();
+			public void run() {
 				// TODO Auto-generated method stub
-				serialPortOne.sendBuffer(psn.msg_38_print(1));
+				tv_welcome_two.setText(map.get("welcome"));
+				tv_collectionpoint_two.setText("积分:"+map.get("collection")+"点");
 			}
 		});
-		btn_printno_one = (Button) mView_one.findViewById(R.id.btn_printno_one);
-		btn_printno_one.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				PrintSelectOrNot psn = new PrintSelectOrNot();
-				// TODO Auto-generated method stub
-				serialPortOne.sendBuffer(psn.msg_38_print(0));
-			}
-		});
-		
 	}
 	
 	private void two_handle_08_view(final Map<String, String> map){
 		display_two(8);
 		tv_paymoney_two = (TextView) mView_two.findViewById(R.id.tv_paymoney_two);
 		tv_yue_two = (TextView) mView_two.findViewById(R.id.tv_yue_two);
-		runOnUiThread(new Runnable() {
-			
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				tv_paymoney_two.setText(map.get("cut_money"));
-				tv_yue_two.setText(map.get("last_money"));
-			}
-		});
-		btn_printyes_two = (Button) mView_two.findViewById(R.id.btn_printyes_two);
-		btn_printyes_two.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				LogUtil.d("点击事件", "btn_printyes_two");
-				PrintSelectOrNot psn = new PrintSelectOrNot();
-				// TODO Auto-generated method stub
-				serialPortTwo.sendBuffer(psn.msg_38_print(1));
-			}
-		});
-		btn_printno_two = (Button) mView_two.findViewById(R.id.btn_printno_two);
-		btn_printno_two.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				LogUtil.d("点击事件", "btn_printno_two");
-				PrintSelectOrNot psn = new PrintSelectOrNot();
-				// TODO Auto-generated method stub
-				serialPortTwo.sendBuffer(psn.msg_38_print(0));
-			}
-		});
-		
+		iv_float_two = (ImageView) mView_two.findViewById(R.id.iv_float_two);
+		if(map.get("yes_no").equals("no")){
+			runOnUiThread(new Runnable() {
+				
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					tv_paymoney_two.setText(map.get("cut_money"));
+					tv_yue_two.setText(map.get("last_money"));
+					iv_float_two.setVisibility(View.VISIBLE);
+				}
+			});
+		}else if(map.get("yes_no").equals("yes")){
+			runOnUiThread(new Runnable() {
+				
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					tv_paymoney_two.setText(map.get("cut_money"));
+					tv_yue_two.setText(map.get("last_money"));
+					iv_float_two.setVisibility(View.GONE);
+				}
+			});
+		}else{
+			runOnUiThread(new Runnable() {
+				
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					tv_paymoney_two.setText(map.get("cut_money"));
+					tv_yue_two.setText(map.get("last_money"));
+					iv_float_two.setVisibility(View.VISIBLE);
+					LogUtil.d("报文", "错误报文");
+				}
+			});
+		}
 	}
 	
 	private void one_handle_32_view(final List<Oil> list){
@@ -1330,6 +1404,57 @@ public class MainActivity extends Activity{
 					vv_ad.getHolder().setFixedSize(1080, 600);
 			        vv_ad.start();
 				}
+			}
+		});
+    }
+    
+    private void one_initView_eight(){
+    	btn_printyes_one = (Button) mView_one.findViewById(R.id.btn_printyes_one);
+		btn_printyes_one.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				LogUtil.d("点击事件", "btn_printyes_one");
+				PrintSelectOrNot psn = new PrintSelectOrNot();
+				// TODO Auto-generated method stub
+				serialPortOne.sendBuffer(psn.msg_38_print(1));
+			}
+		});
+		btn_printno_one = (Button) mView_one.findViewById(R.id.btn_printno_one);
+		btn_printno_one.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				LogUtil.d("点击事件", "btn_printno_one");
+				PrintSelectOrNot psn = new PrintSelectOrNot();
+				// TODO Auto-generated method stub
+				serialPortOne.sendBuffer(psn.msg_38_print(0));
+			}
+		});
+    }
+    
+    private void two_initView_eight(){
+    	btn_printyes_two = (Button) mView_two.findViewById(R.id.btn_printyes_two);
+		btn_printyes_two.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				LogUtil.d("点击事件", "btn_printyes_two");
+				PrintSelectOrNot psn = new PrintSelectOrNot();
+				// TODO Auto-generated method stub
+				serialPortTwo.sendBuffer(psn.msg_38_print(1));
+			}
+		});
+		btn_printno_two = (Button) mView_two.findViewById(R.id.btn_printno_two);
+		btn_printno_two.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				LogUtil.d("点击事件", "btn_printno_two");
+				PrintSelectOrNot psn = new PrintSelectOrNot();
+				// TODO Auto-generated method stub
+				serialPortTwo.sendBuffer(psn.msg_38_print(0));
 			}
 		});
     }

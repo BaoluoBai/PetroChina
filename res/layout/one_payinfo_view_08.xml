@@ -14,7 +14,7 @@
         android:layout_marginTop="135dp"
         android:text="1234.56"
         android:textColor="#FFFFFF"
-        android:textSize="45sp" />
+        android:textSize="40sp" />
 
     <TextView
         android:id="@+id/tv_yue_one"
@@ -26,7 +26,7 @@
         android:layout_marginTop="240dp"
         android:text="6666.56"
         android:textColor="#FFFFFF"
-        android:textSize="45sp" />
+        android:textSize="40sp" />
 
     <Button
         android:id="@+id/btn_printyes_one"

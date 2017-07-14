@@ -17,7 +17,7 @@ public class FillInfo {
 	
 	public static final int MSG_SIZE_OUTCARD = 2;
 	
-	public static final int MSG_SIZE_SETFULL = 2;
+	public static final int MSG_SIZE_SETFULL = 3;
 	
 	DataHexUtil dhx = new DataHexUtil();
 	
