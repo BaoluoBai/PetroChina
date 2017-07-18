@@ -1,8 +1,17 @@
 package com.example.petrochina.util;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 public class Util {
@@ -119,5 +128,52 @@ public class Util {
 		}
 		LogUtil.d(TAG, "list: "+ pictureTempList.toString());
 		return appName;
+	}
+	
+	public static String getDataFromFile(String fileName){
+		String result = "";
+		File file = new File(fileName);
+		if(!file.exists()){
+			result = "null";
+		}else{
+			try {  
+				InputStreamReader isr = new InputStreamReader(new FileInputStream(file), "UTF-8");  
+				BufferedReader br = new BufferedReader(isr);    
+				String str = "";     
+				String mimeTypeLine = null ;  
+				while ((mimeTypeLine = br.readLine()) != null) {  
+					str = str+mimeTypeLine;  
+				}
+				br.close();
+				result = str;
+			} catch (Exception e) {
+				result = "0";
+			}
+		}
+		return result;
+	}
+	
+	public static boolean writeDataToFile(String str, String filename, boolean supplements){
+		boolean flag = true;
+		File file = new File(filename);
+		if (!file.exists()) {
+			try {
+				file.createNewFile();
+			} catch (IOException e) {
+				flag = false;
+			}
+		}
+		try {
+			FileWriter fileWritter = new FileWriter(file);
+			BufferedWriter bufferWritter = new BufferedWriter(fileWritter);
+			if(!supplements){
+				bufferWritter.write(str);
+				bufferWritter.close();
+				flag = true;
+			}
+		} catch (IOException e) {
+			flag = false;
+		}
+		return flag;
 	}
 }

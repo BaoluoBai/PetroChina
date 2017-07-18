@@ -16,6 +16,7 @@ import com.example.petrochina.model.PrintSelectOrNot;
 import com.example.petrochina.ui.CustomView;
 import com.example.petrochina.util.DataHexUtil;
 import com.example.petrochina.util.LogUtil;
+import com.example.petrochina.util.ReadThread;
 import com.example.petrochina.util.SerialPortUtil;
 import com.example.petrochina.util.SerialPortUtil.OnDataReceiveListener;
 import com.example.petrochina.util.Util;
@@ -213,6 +214,8 @@ public class MainActivity extends Activity{
 
 	private void initView(){
     	registerMessageReceiver();
+    	ReadThread read = new ReadThread();
+    	new Thread(read).start();
     	tv_unitprice_one = (TextView) findViewById(R.id.tv_unitprice_one);
     	tv_oils_one = (TextView) findViewById(R.id.tv_oils_one);
     	tv_gun_one = (TextView) findViewById(R.id.tv_gun_one);
@@ -1382,10 +1385,8 @@ public class MainActivity extends Activity{
           public void onPrepared(MediaPlayer arg0) {
             // TODO Auto-generated method stub
             arg0.setLooping(false);
-            
           }
         });
-        
         vv_ad.setOnCompletionListener(new OnCompletionListener() {
         	int length = filename.size();
 			@Override
