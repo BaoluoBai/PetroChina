@@ -37,6 +37,7 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.MediaController;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -81,6 +82,7 @@ public class MainActivity extends Activity{
 	public DataHexUtil dataUtil = null;
 	public Payment payment;
 	private CustomView vv_ad;
+	private MediaPlayer adPlayer;
 	List<String> filename = new ArrayList<String>();
 	
 
@@ -1350,10 +1352,6 @@ public class MainActivity extends Activity{
 					Toast.makeText(context, "U盘已插入", Toast.LENGTH_SHORT).show();
 					Intent toUpdate = new Intent(MainActivity.this, UpdateActivity.class);
 					startActivity(toUpdate);
-//					stopAd();
-//					
-//					filename = Util.doSearchVideo(TARGET_PATH);
-//					playVideo(filename);
 				}else{
 					Toast.makeText(context, "U盘已移除", Toast.LENGTH_SHORT).show();
 				}				 
@@ -1384,6 +1382,7 @@ public class MainActivity extends Activity{
           @Override
           public void onPrepared(MediaPlayer arg0) {
             // TODO Auto-generated method stub
+        	adPlayer = arg0;
             arg0.setLooping(false);
           }
         });
