@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
+import com.alibaba.fastjson.JSONArray;
 import com.example.petrochina.model.CouZheng;
 import com.example.petrochina.model.FillInfo;
 import com.example.petrochina.model.Oil;
@@ -29,7 +31,6 @@ import android.content.IntentFilter;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.media.MediaPlayer.OnPreparedListener;
-import android.opengl.Visibility;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -37,7 +38,6 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.MediaController;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -82,7 +82,6 @@ public class MainActivity extends Activity{
 	public DataHexUtil dataUtil = null;
 	public Payment payment;
 	private CustomView vv_ad;
-	private MediaPlayer adPlayer;
 	List<String> filename = new ArrayList<String>();
 	
 
@@ -239,7 +238,10 @@ public class MainActivity extends Activity{
     	tv_collectionpoint_two = (TextView) findViewById(R.id.tv_collectionpoint_two);
     	display_one(0);
     	display_two(0);
+    	getOilInfo_one();
+    	getOilInfo_two();
     }
+	
 
     
     public void display_one(int view_number){
@@ -697,6 +699,9 @@ public class MainActivity extends Activity{
 	}
 	
 	private void one_handle_32_view(final List<Oil> list){
+		String json = JSONArray.toJSONString(list);
+		LogUtil.d("JSON", json);
+		Util.writeDataToFile(json, ParamStatic.OIL_ONE_PATH, false);
 		if(list.size() == 1){
 			runOnUiThread(new Runnable() {
 				
@@ -727,6 +732,9 @@ public class MainActivity extends Activity{
 	}
 	
 	private void two_handle_32_view(final List<Oil> list){
+		String json = JSONArray.toJSONString(list);
+		LogUtil.d("JSON", json);
+		Util.writeDataToFile(json, ParamStatic.OIL_TWO_PATH, false);
 		if(list.size() == 1){
 			runOnUiThread(new Runnable() {
 				
@@ -1382,8 +1390,8 @@ public class MainActivity extends Activity{
           @Override
           public void onPrepared(MediaPlayer arg0) {
             // TODO Auto-generated method stub
-        	adPlayer = arg0;
             arg0.setLooping(false);
+            arg0.setVolume(0.3f, 0.3f);
           }
         });
         vv_ad.setOnCompletionListener(new OnCompletionListener() {
@@ -1398,6 +1406,7 @@ public class MainActivity extends Activity{
 					vv_ad.setVideoPath(vedio.getAbsolutePath());
 					vv_ad.getHolder().setFixedSize(1080, 600);
 			        vv_ad.start();
+
 				}else{
 					File vedio=new File(ParamStatic.VIDEO_PATH + "/" + filename.get(video_position));
 					vv_ad.setVideoPath(vedio.getAbsolutePath());
@@ -1457,5 +1466,79 @@ public class MainActivity extends Activity{
 				serialPortTwo.sendBuffer(psn.msg_38_print(0));
 			}
 		});
+    }
+    
+    private void getOilInfo_one(){
+    	String json = Util.getDataFromFile(ParamStatic.OIL_ONE_PATH);
+    	if(!json.equals("0")){
+    		List<Oil> list = new ArrayList<Oil>(); 
+        	list = JSONArray.parseArray(json,Oil.class); 
+        	final List<Oil> tmp = list;
+        	if(list.size() == 1){
+    			runOnUiThread(new Runnable() {
+    				
+    				@Override
+    				public void run() {
+    					// TODO Auto-generated method stub
+    					tv_unitprice_one.setText(tmp.get(0).getUnit_price()+"元/升");
+    					tv_oils_one.setText(tmp.get(0).getOil_kind());
+    					tv_gun_one.setText(tmp.get(0).getGun_number());
+    				}
+    			});
+    			
+    		}else if(list.size() == 2){
+    			runOnUiThread(new Runnable() {
+    				
+    				@Override
+    				public void run() {
+    					// TODO Auto-generated method stub
+    					tv_unitprice_one.setText(tmp.get(0).getUnit_price()+"元/升");
+    					tv_oils_one.setText(tmp.get(0).getOil_kind());
+    					tv_gun_one.setText(tmp.get(0).getGun_number());
+    					tv_unitprice_two.setText(tmp.get(1).getUnit_price()+"元/升");
+    					tv_oils_two.setText(tmp.get(1).getOil_kind());
+    					tv_gun_two.setText(tmp.get(1).getGun_number());
+    				}
+    			});
+    		}
+    	}
+    	
+    }
+    
+    private void getOilInfo_two(){
+    	String json = Util.getDataFromFile(ParamStatic.OIL_TWO_PATH);
+    	if(!json.equals("0")){
+    		List<Oil> list = new ArrayList<Oil>(); 
+        	list = JSONArray.parseArray(json,Oil.class); 
+        	final List<Oil> tmp = list;
+        	if(list.size() == 1){
+    			runOnUiThread(new Runnable() {
+    				
+    				@Override
+    				public void run() {
+    					// TODO Auto-generated method stub
+    					tv_unitprice_four.setText(tmp.get(0).getUnit_price()+"元/升");
+    					tv_oils_four.setText(tmp.get(0).getOil_kind());
+    					tv_gun_four.setText(tmp.get(0).getGun_number());
+    				}
+    			});
+    			
+    		}else if(list.size() == 2){
+    			runOnUiThread(new Runnable() {
+    				
+    				@Override
+    				public void run() {
+    					// TODO Auto-generated method stub
+    					tv_unitprice_three.setText(tmp.get(0).getUnit_price()+"元/升");
+    					tv_oils_three.setText(tmp.get(0).getOil_kind());
+    					tv_gun_three.setText(tmp.get(0).getGun_number());
+    					tv_unitprice_four.setText(tmp.get(1).getUnit_price()+"元/升");
+    					tv_oils_four.setText(tmp.get(1).getOil_kind());
+    					tv_gun_four.setText(tmp.get(1).getGun_number());
+    				}
+    			});
+    		}
+    	}
+    	
     }
 }

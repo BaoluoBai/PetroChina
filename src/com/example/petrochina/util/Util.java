@@ -134,7 +134,7 @@ public class Util {
 		String result = "";
 		File file = new File(fileName);
 		if(!file.exists()){
-			result = "null";
+			result = "0";
 		}else{
 			try {  
 				InputStreamReader isr = new InputStreamReader(new FileInputStream(file), "UTF-8");  
@@ -155,11 +155,16 @@ public class Util {
 	
 	public static boolean writeDataToFile(String str, String filename, boolean supplements){
 		boolean flag = true;
+		File file_path = new File("/sdcard/pt");
+    	if (!file_path.exists()) {
+    		file_path.mkdirs();
+  		}
 		File file = new File(filename);
 		if (!file.exists()) {
 			try {
 				file.createNewFile();
 			} catch (IOException e) {
+				LogUtil.d(TAG, "文件创建失败");
 				flag = false;
 			}
 		}
